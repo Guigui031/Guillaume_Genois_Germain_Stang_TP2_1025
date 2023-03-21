@@ -1,6 +1,7 @@
 package server;
 
 import javafx.util.Pair;
+import server.models.Course;
 import server.models.RegistrationForm;
 
 import java.io.*;
@@ -8,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 public class Server {
 
@@ -90,7 +92,35 @@ public class Server {
      @throws Exception si une erreur se produit lors de la lecture du fichier ou de l'écriture de l'objet dans le flux
      */
     public void handleLoadCourses(String arg) {
-        // TODO: implémenter cette méthode
+
+        ArrayList<Course> courses = new ArrayList<>();
+
+        try {
+            FileInputStream fileStream = new FileInputStream("data/cours.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+
+                String[] fields = line.split("\t");
+
+                if (fields[2].equals(arg)) {
+                    Course course = new Course((String) fields[0], (String) fields[1], (String) fields[2]);
+                    courses.add(course);
+                }
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            fileStream.close();
+
+            objectOutputStream.writeObject(courses);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } // TODO: catch de l'exception lors du flux de sortie?
 
     }
 
