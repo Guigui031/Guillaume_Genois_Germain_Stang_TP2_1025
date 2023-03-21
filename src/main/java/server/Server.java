@@ -21,22 +21,41 @@ public class Server {
     private ObjectOutputStream objectOutputStream;
     private final ArrayList<EventHandler> handlers;
 
+
+    /**
+     Construit un objet Serveur qui écoute sur le port spécifié.
+     @param port le port sur lequel le Serveur doit tourner.
+     @throws IOException si une erreur d'entrée/sortie survient lors de la création de la ServerSocket.
+     */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
         this.handlers = new ArrayList<EventHandler>();
         this.addEventHandler(this::handleEvents);
     }
 
+    /**
+     Ajoute un gestionnaire d'événements à la liste des gestionnaires d'événements pour ce Serveur.
+     @param h le gestionnaire d'événements à ajouter.
+     */
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
     }
 
+    /**
+     Alertes tous les gestionnaires d'événements enregistrés pour ce Serveur avec la commande et l'argument spécifiés.
+     @param cmd la commande à transmettre aux gestionnaires d'événements
+     @param arg l'argument à transmettre aux gestionnaires d'événements
+     */
     private void alertHandlers(String cmd, String arg) {
         for (EventHandler h : this.handlers) {
             h.handle(cmd, arg);
         }
     }
 
+    /**
+     Écoute en permanence pour les connexions entrantes et gère chaque connexion individuellement.
+     @throws Exception si une erreur se produit lors de la création des flux d'entrée et de sortie, ou lors de la fermeture de la connexion
+     */
     public void run() {
         while (true) {
             try {
@@ -53,6 +72,13 @@ public class Server {
         }
     }
 
+    /**
+     Écoute les messages entrants du client et les traite en appelant la méthode {@link #processCommandLine(String)}
+     pour extraire les commandes et les arguments, puis en appelant la méthode {@link #alertHandlers(String, String)}
+     pour alerter les gestionnaires d'événements enregistrés.
+     @throws IOException si une erreur se produit lors de la lecture des messages du client ou de la communication avec les gestionnaires d'événements
+     @throws ClassNotFoundException si la classe d'un objet reçu via le flux d'entrée d'objets n'a pas été trouvée
+     */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
         if ((line = this.objectInputStream.readObject().toString()) != null) {
@@ -63,6 +89,11 @@ public class Server {
         }
     }
 
+    /**
+     Traite une ligne de commande envoyée par le client en la divisant en deux parties : la commande et les arguments.
+     @param line la ligne de commande envoyée par le client
+     @return un objet {@link Pair} contenant la commande (première partie de la ligne) et les arguments (le reste de la ligne)
+     */
     public Pair<String, String> processCommandLine(String line) {
         String[] parts = line.split(" ");
         String cmd = parts[0];
@@ -70,12 +101,23 @@ public class Server {
         return new Pair<>(cmd, args);
     }
 
+    /**
+     Ferme les flux d'entrée et de sortie et la connexion avec le client.
+     @throws IOException si une erreur se produit lors de la fermeture des flux d'entrée et de sortie ou de la connexion avec le client
+     */
     public void disconnect() throws IOException {
         objectOutputStream.close();
         objectInputStream.close();
         client.close();
     }
 
+    /**
+     Gère les événements envoyés par les clients en appelant les méthodes appropriées.
+     Si la commande est {@value #REGISTER_COMMAND}, la méthode {@link #handleRegistration()} est appelée.
+     Si la commande est {@value #LOAD_COMMAND}, la méthode {@link #handleLoadCourses(String)} est appelée.
+     @param cmd la commande envoyée par le client
+     @param arg les arguments associés à la commande (le cas échéant)
+     */
     public void handleEvents(String cmd, String arg) {
         if (cmd.equals(REGISTER_COMMAND)) {
             handleRegistration();
