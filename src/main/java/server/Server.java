@@ -1,10 +1,9 @@
 package server;
 
 import javafx.util.Pair;
+import server.models.RegistrationForm;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -84,7 +83,7 @@ public class Server {
     }
 
     /**
-     Lire un fichier texte contenant des informations sur les cours et les transofmer en liste d'objets 'Course'.
+     Lire un fichier texte contenant des informations sur les cours et les transformer en liste d'objets 'Course'.
      La méthode filtre les cours par la session spécifiée en argument.
      Ensuite, elle renvoie la liste des cours pour une session au client en utilisant l'objet 'objectOutputStream'.
      @param arg la session pour laquelle on veut récupérer la liste des cours
@@ -92,6 +91,7 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         // TODO: implémenter cette méthode
+
     }
 
     /**
@@ -100,7 +100,20 @@ public class Server {
      @throws Exception si une erreur se produit lors de la lecture de l'objet, l'écriture dans un fichier ou dans le flux de sortie.
      */
     public void handleRegistration() {
-        // TODO: implémenter cette méthode
+        try {
+            RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("data/inscription.txt"));
+            String msg = form.getCourse() + "\t" + form.getClass() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
+            writer.append(msg);  // TODO: s'assurer que ajoute au fichier et ne reset pas tout
+            writer.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("La classe lue n'existe pas dans le programme");
+        } catch (IOException e){
+            e.printStackTrace();
+            System.out.println("Erreur à la lecture du fichier");
+        } // TODO: catch de l'exception lors du flux de sortie?
+
     }
 }
 
