@@ -81,11 +81,11 @@ public class Server {
      */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
-        System.out.println(this.objectInputStream.readObject().toString());
         if ((line = this.objectInputStream.readObject().toString()) != null) {
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
             String arg = parts.getValue();
+            System.out.println(cmd);
             this.alertHandlers(cmd, arg);
         }
     }
@@ -135,7 +135,6 @@ public class Server {
      @throws Exception si une erreur se produit lors de la lecture du fichier ou de l'écriture de l'objet dans le flux
      */
     public void handleLoadCourses(String arg) {
-
         ArrayList<Course> courses = new ArrayList<>();
 
         try {

@@ -11,15 +11,14 @@ public class ClientSimple {
                 // get the output stream from the socket.
                 OutputStream outputStream = socket.getOutputStream();
                 ObjectOutputStream dataOutputStream = new ObjectOutputStream(outputStream);
-
-
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 System.out.println("Sending string to the ServerSocket");
 
                 // write the message we want to send
-                dataOutputStream.writeObject("CHARGER Ete");
+                dataOutputStream.writeObject("CHARGER Automne");
                 dataOutputStream.flush(); // send the message
-
+                System.out.println(in.readLine());
                 System.out.println(dataOutputStream);
                 dataOutputStream.close(); // close the output stream when we're done.
 
