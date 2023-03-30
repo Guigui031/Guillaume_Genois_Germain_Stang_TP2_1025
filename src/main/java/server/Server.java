@@ -81,6 +81,7 @@ public class Server {
      */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
+        System.out.println(this.objectInputStream.readObject().toString());
         if ((line = this.objectInputStream.readObject().toString()) != null) {
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
