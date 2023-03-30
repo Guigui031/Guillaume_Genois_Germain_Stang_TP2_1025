@@ -18,6 +18,7 @@ public class ClientSimple {
                 // write the message we want to send
                 dataOutputStream.writeObject("CHARGER Automne");
                 dataOutputStream.flush(); // send the message
+
                 System.out.println(in.readLine());
                 System.out.println(dataOutputStream);
                 dataOutputStream.close(); // close the output stream when we're done.

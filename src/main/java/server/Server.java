@@ -178,6 +178,7 @@ public class Server {
             String msg = form.getCourse() + "\t" + form.getClass() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
             writer.append(msg);  // TODO: s'assurer que ajoute au fichier et ne reset pas tout
             writer.close();
+            objectOutputStream.writeObject("Inscription réussi");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println("La classe lue n'existe pas dans le programme");
