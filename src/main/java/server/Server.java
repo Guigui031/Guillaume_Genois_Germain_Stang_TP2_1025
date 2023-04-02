@@ -149,7 +149,7 @@ public class Server {
                 String[] fields = line.split("\t");
 
                 if (fields[2].equals(arg)) {
-                    Course course = new Course((String) fields[0], (String) fields[1], (String) fields[2]);
+                    Course course = new Course((String) fields[1], (String) fields[0], (String) fields[2]);
                     courses.add(course);
                 }
             }
