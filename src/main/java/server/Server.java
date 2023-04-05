@@ -173,12 +173,20 @@ public class Server {
      */
     public void handleRegistration() {
         try {
+            processCommandLine(objectInputStream.readObject().toString());
+            // stream vs non stream?
+            System.out.println("lol");
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("data/inscription.txt"));
+            System.out.println(form);
+            FileOutputStream fileStream = new FileOutputStream("data/inscription.txt");
+            System.out.println("file");
+            BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
+            System.out.println("writer");
             String msg = form.getCourse() + "\t" + form.getClass() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
             writer.append(msg);  // TODO: s'assurer que ajoute au fichier et ne reset pas tout
             writer.close();
-            objectOutputStream.writeObject("Inscription réussi");
+            System.out.println("inscription");
+            objectOutputStream.writeObject("Inscription réussie");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println("La classe lue n'existe pas dans le programme");

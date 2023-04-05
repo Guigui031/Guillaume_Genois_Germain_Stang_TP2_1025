@@ -1,5 +1,6 @@
 package client;
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import javax.swing.*;
 import java.util.Scanner;
@@ -85,10 +86,10 @@ public class Client {
             System.out.println(id + ". " + element.getCode() + "     " + element.getName());
         }
 
-        System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2.Inscription à un cours.\n> Choix: ");
+        System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
         try {
-            Integer choix = this.scanner.nextInt();
+            Integer choix = this.scanner.nextInt();  //TODO: Integer au lieu de int?
 
             switch (choix) {
                 case 1:
@@ -110,7 +111,73 @@ public class Client {
     }
 
     private void handleCourseSelection() {
-        //TODO
+        System.out.print("Veuillez saisir votre prénom: ");
+        scanner.nextLine();  // pour clear les \n présents
+        String prenom = this.scanner.nextLine();
+
+        System.out.print("Veuillez saisir votre nom: ");
+        String nom = this.scanner.nextLine();
+
+        System.out.print("Veuillez saisir votre email: ");
+        String email = this.scanner.nextLine();
+
+        System.out.print("Veuillez saisir votre matricule: ");
+        String matricule = this.scanner.nextLine();
+
+        System.out.print("Veuillez saisir le code du cours: ");
+        String codeCours = this.scanner.nextLine();
+
+        try {
+            Course course = findCourse(codeCours);
+            handleCourseRegistration(new RegistrationForm(prenom, nom, email, matricule, course));
+        } catch(IOException e) {
+            System.out.println("ERREUR");
+        } catch (Exception e) {
+            System.out.println("-> Le choix de cours que vous avez saisi n'est pas valide.");
+        }
+    }
+
+    private Course findCourse(String codeCours) throws Exception {
+        for (Course element: cours) {
+            if (element.getCode().equals(codeCours)) {
+                return element;
+            }
+        }
+        throw new Exception();  // TODO: autre type d'exception moins générale?
+    }
+
+    private void handleCourseRegistration(RegistrationForm form) throws IOException {
+        Socket socket = new Socket("127.0.0.1", 1337);
+
+        OutputStream outputStream = socket.getOutputStream();
+        ObjectOutputStream dataOutputStream = new ObjectOutputStream(outputStream);
+
+        dataOutputStream.writeObject("INSCRIRE");
+        dataOutputStream.flush(); // send the message
+        System.out.println("lol");
+        //TODO: BIEN GERE LES ERREURS.
+        try {
+            InputStream inputStream = socket.getInputStream();
+            System.out.println("input");
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            System.out.println("object");
+            String reussite = (String) objectInputStream.readObject();
+            if (reussite.equals("")) {
+                System.out.println("rien");
+            }
+            System.out.println(reussite);
+            System.out.println("reussite");
+            if (reussite.equals("Inscription réussie")) {
+                System.out.println("Félicitations! Inscription réussie de " + form.getPrenom() + " au cours " + form.getCourse().getCode() + ".");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERREUR");
+        } finally {
+            System.out.println("lol2");
+        }
+        dataOutputStream.close();
+        System.out.println("lol3");
     }
 
 }
