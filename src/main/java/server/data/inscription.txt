@@ -1,1 +1,1 @@
-Automne	IFT2255	12345678	Michalis	Famelis	mfamelis@iro.umontreal.ca
+Course{name=Genie_Logiciel, code=IFT2255, session=Automne}	class server.models.RegistrationForm	fjkvnen	csjlnckjr	dljcnkrsvbj

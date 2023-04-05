@@ -161,6 +161,10 @@ public class Client {
             System.out.println("input");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             System.out.println("object");
+
+            dataOutputStream.writeObject(form);
+            dataOutputStream.flush(); // send the message
+
             String reussite = (String) objectInputStream.readObject();
             if (reussite.equals("")) {
                 System.out.println("rien");

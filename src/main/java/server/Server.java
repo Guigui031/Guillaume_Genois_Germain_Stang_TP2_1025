@@ -173,7 +173,7 @@ public class Server {
      */
     public void handleRegistration() {
         try {
-            processCommandLine(objectInputStream.readObject().toString());
+            //processCommandLine(objectInputStream.readObject().toString());
             // stream vs non stream?
             System.out.println("lol");
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
