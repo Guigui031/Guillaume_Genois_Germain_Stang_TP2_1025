@@ -18,13 +18,12 @@ public class ClientSimple {
     //TODO: A noter, le scanner est global au client.
 
 
-    public static void main(String[] args) throws IOException {
+    public ClientSimple(Client modele) throws IOException {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
-        run();
+        client = modele;
     }
 
     public void run() {
-        client = new Client();
         while (true) {
             try {
                 handleSessionSelection();
