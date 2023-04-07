@@ -15,11 +15,13 @@ public class ClientSimple {
     private String sessionName;
 
     private Scanner scanner = new Scanner(System.in);
+
     //TODO: A noter, le scanner est global au client.
 
 
     public ClientSimple(Client modele) throws IOException {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
+        System.out.println("lol");
         client = modele;
     }
 
