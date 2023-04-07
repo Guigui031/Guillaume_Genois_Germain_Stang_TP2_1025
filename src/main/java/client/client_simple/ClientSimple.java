@@ -72,7 +72,7 @@ public class ClientSimple {
 
     private void handleCoursDisplay() {
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
-        System.out.println(client.getListCourses());
+        System.out.println(getListCourses());
 
 
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
@@ -116,5 +116,15 @@ public class ClientSimple {
         String codeCours = this.scanner.nextLine();
 
         client.validateRegistration(prenom, nom, email, matricule, codeCours);
+    }
+
+    public String getListCourses() {
+        String listCourses = "";
+        int id = 0;
+        for (Course element : client.getCours()) {
+            id += 1;
+            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
+        }
+        return listCourses;
     }
 }

@@ -50,9 +50,7 @@ public class Client {
         //TODO: BIEN GERE LES ERREURS.
         try {
             InputStream inputStream = socket.getInputStream();
-            System.out.println("input");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            System.out.println("object");
 
             // envoyer le form
             dataOutputStream.writeObject(form);
@@ -91,13 +89,7 @@ public class Client {
         throw new Exception();  // TODO: autre type d'exception moins générale?
     }
 
-    public String getListCourses() {
-        String listCourses = "";
-        int id = 0;
-        for (Course element : cours) {
-            id += 1;
-            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
-        }
-        return listCourses;
+    public ArrayList<Course> getCours() {
+        return cours;
     }
 }
