@@ -16,6 +16,7 @@ public class ClientFXLauncher extends Application {
 
         stage.setScene(scene);
         stage.setTitle("Mon MVC JavaFXCompteur");
+        System.out.println("lol");
         stage.show();
     }
 
