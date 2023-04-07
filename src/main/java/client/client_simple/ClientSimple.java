@@ -21,8 +21,8 @@ public class ClientSimple {
 
     public ClientSimple(Client modele) throws IOException {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
-        System.out.println("lol");
         client = modele;
+        System.out.println("lol");
     }
 
     public void run() {
