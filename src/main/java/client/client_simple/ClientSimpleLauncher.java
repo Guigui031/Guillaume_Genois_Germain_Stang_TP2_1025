@@ -1,7 +1,6 @@
 package client.client_simple;
 
 import client.Client;
-import server.Server;
 
 public class ClientSimpleLauncher {
     public static void main(String[] args) {
