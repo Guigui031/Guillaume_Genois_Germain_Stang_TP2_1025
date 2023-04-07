@@ -1,13 +1,13 @@
 package client.client_simple;
 
-import client.Client;
+import client.ClientModel;
 
 public class ClientSimpleLauncher {
     public static void main(String[] args) {
-        Client modele;
+        ClientModel modele;
         ClientSimple vue;
         try {
-            modele = new Client();
+            modele = new ClientModel();
             vue = new ClientSimple(modele);
             vue.run();
         } catch (Exception e) {

@@ -1,17 +1,14 @@
 package client.client_simple;
 
-import client.Client;
+import client.ClientModel;
 import server.models.Course;
-import server.models.RegistrationForm;
 
 import java.io.*;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientSimple {
 
-    private Client client;
+    private ClientModel client;
     private String sessionName;
 
     private Scanner scanner = new Scanner(System.in);
@@ -19,7 +16,7 @@ public class ClientSimple {
     //TODO: A noter, le scanner est global au client.
 
 
-    public ClientSimple(Client modele) throws IOException {
+    public ClientSimple(ClientModel modele) throws IOException {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
         client = modele;
         System.out.println("lol");

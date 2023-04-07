@@ -1,16 +1,13 @@
 package client;
-import server.Server;
 import server.models.Course;
 import server.models.RegistrationForm;
 
-import javax.swing.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.net.Socket;
 import java.io.*;
 
 
-public class Client {
+public class ClientModel {
     private ArrayList<Course> cours = new ArrayList<Course>();
 
     //TODO: Peut-être ré-agencer le code pour être dans le format MVC pour les deux clients.
