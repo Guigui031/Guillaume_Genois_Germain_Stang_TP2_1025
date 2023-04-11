@@ -12,11 +12,10 @@ public class ClientFXLauncher extends Application {
         ClientFXView view = new ClientFXView();
         ClientFXController controller = new ClientFXController(model, view);
 
-        Scene scene = new Scene(view, 200, 200);
+        Scene scene = new Scene(view, 700, 500);
 
         stage.setScene(scene);
-        stage.setTitle("Mon MVC JavaFXCompteur");
-        System.out.println("lol");
+        stage.setTitle("Portail d'inscription de l'UDEM");
         stage.show();
     }
 

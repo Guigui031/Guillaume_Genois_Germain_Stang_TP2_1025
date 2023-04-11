@@ -30,7 +30,8 @@ public class ClientModel {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             this.cours = (ArrayList<Course>) objectInputStream.readObject();
         } catch (Exception e) {
-            System.out.println("ERREUR");
+            System.out.println(e);
+            System.out.println("ERREUR dans la recupération des cours");
         }
         dataOutputStream.close();
     }

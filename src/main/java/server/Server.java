@@ -138,7 +138,7 @@ public class Server {
         ArrayList<Course> courses = new ArrayList<>();
 
         try {
-            FileInputStream fileStream = new FileInputStream("data/cours.txt");
+            FileInputStream fileStream = new FileInputStream("src/main/java/server/data/cours.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -178,7 +178,7 @@ public class Server {
             System.out.println("lol");
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
             System.out.println(form);
-            FileOutputStream fileStream = new FileOutputStream("data/inscription.txt");
+            FileOutputStream fileStream = new FileOutputStream("src/main/java/server/data/inscription.txt");
             System.out.println("file");
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
             System.out.println("writer");

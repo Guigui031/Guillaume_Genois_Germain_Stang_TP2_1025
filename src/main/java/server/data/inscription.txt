@@ -1,1 +1,1 @@
-Course{name=Genie_Logiciel, code=IFT2255, session=Automne}	class server.models.RegistrationForm	kgjvbk	kbjmhbnhv	bhbhm
+Course{name=Programmation2, code=IFT1025, session=Hiver}	class server.models.RegistrationForm	Germain	Stang	germain.stang@gmail.com

@@ -1,9 +1,11 @@
 package client.client_fx;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.geometry.*;
+import javafx.scene.text.*;
+import server.models.Course;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
+import java.util.ArrayList;
 
 /*
  * Dans cette classe nous definissons les éléments graphiques de notre
@@ -13,47 +15,74 @@ import javafx.scene.text.Text;
  */
 public class ClientFXView extends BorderPane {
 
-    private Button inc = new Button("+1");
-    private Button dub = new Button("*2");
-    private Button div = new Button("/2");
-    private Button dec = new Button("-1");
-
-    private Text textValeur = new Text("Appuyer sur un bouton");
+    private ListView<String> listView = new ListView<>();
+    private Button chargerButton = new Button("Charger");
+    private ComboBox<String> sessionList = new ComboBox<>();
 
     public ClientFXView() {
+        BorderPane root = new BorderPane();
 
-        this.setTop(inc);
-        this.setBottom(dec);
-        this.setLeft(dub);
-        this.setRight(div);
+        // Partie de droite inscription
+        VBox inscriptionBox = new VBox();
+        StackPane stackPane = new StackPane();
+        Label inscriptionLabel = new Label("Inscription");
+        stackPane.getChildren().add(inscriptionLabel);
+        stackPane.setAlignment(Pos.CENTER);
+        inscriptionBox.getChildren().add(stackPane);
+        inscriptionBox.setPadding(new Insets(0, 10, 0, 10));
+        inscriptionBox.setAlignment(Pos.CENTER);
 
-        this.setCenter(textValeur);
+        // Partie de gauche liste des cours
+        VBox listeCoursBox = new VBox();
+        Label listeCoursLabel = new Label("Liste des cours");
+        listeCoursLabel.setFont(new Font("Arial", 25));
 
-        BorderPane.setAlignment(inc, Pos.CENTER);
-        BorderPane.setAlignment(dub, Pos.CENTER);
-        BorderPane.setAlignment(div, Pos.CENTER);
-        BorderPane.setAlignment(dec, Pos.CENTER);
 
+        listView.getItems().addAll();
+
+        sessionList.getItems().addAll("Automne", "Hiver", "Ete");
+        sessionList.setValue("Automne");
+
+        HBox boutonsBox = new HBox();
+        boutonsBox.getChildren().addAll(sessionList, chargerButton);
+        boutonsBox.setAlignment(Pos.CENTER);
+        boutonsBox.setSpacing(10);
+
+
+        listeCoursBox.getChildren().addAll(listeCoursLabel, listView, boutonsBox);
+        listeCoursBox.setAlignment(Pos.CENTER);
+        listeCoursBox.setPadding(new Insets(0, 25, 0, 25));
+        listeCoursBox.setSpacing(10);
+
+
+        SplitPane splitPane = new SplitPane(listeCoursBox, inscriptionBox);
+        splitPane.setOrientation(Orientation.HORIZONTAL);
+        splitPane.setDividerPositions(0.5);
+        root.setCenter(splitPane);
+
+        this.setCenter(root);
     }
 
-    public Button getIncButton() {
-        return this.inc;
+    public Button getChargerButton() {
+        return this.chargerButton;
     }
 
-    public Button getDecButton() {
-        return this.dec;
+    public ListView getListViex() {
+        return this.listView;
     }
 
-    public Button getDivButton() {
-        return this.div;
+    public ComboBox getSessionList() {
+        return this.sessionList;
     }
 
-    public Button getDubButton() {
-        return this.dub;
+    public void updateListView(ArrayList<String> list) {
+        this.listView.getItems().clear();
+        this.listView.getItems().addAll(list);
     }
 
-    public void updateText(String nouvelleValeur) {
-        this.textValeur.setText(String.valueOf(nouvelleValeur));
+    public String getSelectedCours() {
+        return this.listView.getSelectionModel().getSelectedItem();
     }
+
 
 }
