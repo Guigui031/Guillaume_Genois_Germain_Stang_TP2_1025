@@ -36,7 +36,7 @@ public class ClientModel {
         dataOutputStream.close();
     }
 
-    public void handleCourseRegistration(RegistrationForm form) throws IOException {
+    private void handleCourseRegistration(RegistrationForm form) throws IOException {
         Socket socket = new Socket("127.0.0.1", 1337);
 
         OutputStream outputStream = socket.getOutputStream();

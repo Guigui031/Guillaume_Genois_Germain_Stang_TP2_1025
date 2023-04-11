@@ -1,4 +1,5 @@
 package client.client_fx;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
@@ -16,21 +17,18 @@ import java.util.ArrayList;
 public class ClientFXView extends BorderPane {
 
     private ListView<String> listView = new ListView<>();
-    private Button chargerButton = new Button("Charger");
+    private Button chargerButton = new Button("charger");
     private ComboBox<String> sessionList = new ComboBox<>();
+
+    private Button envoyerButton = new Button("envoyer");
+    private ArrayList<Text> infoNameList = new ArrayList<>();
+    private ArrayList<TextField> infoFieldList = new ArrayList<>();
 
     public ClientFXView() {
         BorderPane root = new BorderPane();
 
         // Partie de droite inscription
-        VBox inscriptionBox = new VBox();
-        StackPane stackPane = new StackPane();
-        Label inscriptionLabel = new Label("Inscription");
-        stackPane.getChildren().add(inscriptionLabel);
-        stackPane.setAlignment(Pos.CENTER);
-        inscriptionBox.getChildren().add(stackPane);
-        inscriptionBox.setPadding(new Insets(0, 10, 0, 10));
-        inscriptionBox.setAlignment(Pos.CENTER);
+        VBox inscriptionBox = initInscBox();
 
         // Partie de gauche liste des cours
         VBox listeCoursBox = new VBox();
@@ -63,15 +61,53 @@ public class ClientFXView extends BorderPane {
         this.setCenter(root);
     }
 
+    private VBox initInscBox() {
+        // Partie de droite inscription
+        VBox inscriptionBox = new VBox();
+        Label inscriptionLabel = new Label("Formulaire d'inscription");
+        inscriptionLabel.setFont(new Font("Arial", 25));
+
+        VBox infoBox = new VBox();
+
+        HBox prenomBox = generateInfo("prenom");
+        HBox nomBox = generateInfo("nom");
+        HBox emailBox = generateInfo("email");
+        HBox matriculeBox = generateInfo("matricule");
+
+        infoBox.getChildren().addAll(prenomBox, nomBox, emailBox, matriculeBox);
+        infoBox.setAlignment(Pos.CENTER);
+
+        inscriptionBox.getChildren().addAll(inscriptionLabel, infoBox, envoyerButton);
+        inscriptionBox.setPadding(new Insets(0, 10, 0, 10));
+        inscriptionBox.setAlignment(Pos.CENTER);
+
+        return inscriptionBox;
+    }
+
+    private HBox generateInfo(String info) {
+        HBox box = new HBox();
+        TextField textField = new TextField();
+        Text text = new Text(info);
+        box.getChildren().addAll(textField, text);
+        infoNameList.add(text);
+        infoFieldList.add(textField);
+
+        return box;
+    }
+
     public Button getChargerButton() {
         return this.chargerButton;
     }
 
-    public ListView getListViex() {
+    public Button getEnvoyerButton() {
+        return envoyerButton;
+    }
+
+    public ListView<String> getListView() {
         return this.listView;
     }
 
-    public ComboBox getSessionList() {
+    public ComboBox<String> getSessionList() {
         return this.sessionList;
     }
 
@@ -84,5 +120,13 @@ public class ClientFXView extends BorderPane {
         return this.listView.getSelectionModel().getSelectedItem();
     }
 
+    public String getTextInfo(String info) {
+        for (int i = 0; i < infoNameList.size(); i++) {
+            if (infoNameList.get(i).getText().equals(info)) {
+                return infoFieldList.get(i).getText();
+            }
+        }
+        return null;
+    }
 
 }
