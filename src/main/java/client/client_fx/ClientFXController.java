@@ -2,11 +2,13 @@ package client.client_fx;
 
 import client.ClientModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientFXController {
     private ClientModel modele;
     private ClientFXView vue;
+
 
     public ClientFXController(ClientModel m, ClientFXView v) {
         this.modele = m;
@@ -20,18 +22,16 @@ public class ClientFXController {
             this.envoyer();
         });
 
-        this.vue.getDubButton().setOnAction((action) -> {
-            this.dub();
-        });
-
-        this.vue.getDivButton().setOnAction((action) -> {
-            this.div();
-        });
     }
 
     private void charger() {
-        this.modele.ajouter(1);
-        this.vue.updateText(String.valueOf(this.modele.getValeur()));
+        String session = this.vue.getSession();
+        try {
+            this.modele.handleCourseRequest(session);
+            this.vue.updateListView(this.modele.getCours());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void envoyer() {
@@ -39,19 +39,17 @@ public class ClientFXController {
         String nom = this.vue.getTextInfo("nom");
         String email = this.vue.getTextInfo("email");
         String matricule = this.vue.getTextInfo("matricule");
-        String codeCours = this.vue.getSelectedCours();
+        String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
         this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
-        this.vue.updateText(String.valueOf(this.modele.getValeur()));
+
     }
 
     private void dub() {
-        this.modele.multiplier(2);
-        this.vue.updateText(String.valueOf(this.modele.getValeur()));
+
     }
 
     private void div() {
-        this.modele.diviser(2);
-        this.vue.updateText(String.valueOf(this.modele.getValeur()));
+
     }
 
 

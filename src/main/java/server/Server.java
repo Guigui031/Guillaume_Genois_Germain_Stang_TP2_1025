@@ -182,7 +182,7 @@ public class Server {
             System.out.println("file");
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
             System.out.println("writer");
-            String msg = form.getCourse() + "\t" + form.getClass() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
+            String msg = form.getCourse().getCode() +"\t" +form.getCourse().getName()+ "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
             writer.append(msg);  // TODO: s'assurer que ajoute au fichier et ne reset pas tout
             writer.close();
             System.out.println("inscription");

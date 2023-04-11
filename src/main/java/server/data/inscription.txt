@@ -1,1 +1,1 @@
-Course{name=Programmation2, code=IFT1025, session=Hiver}	class server.models.RegistrationForm	Germain	Stang	germain.stang@gmail.com
+IFT1227	Architecture_des_ordinateurs	24526782	germain	stang	germain.stang@gmail.com

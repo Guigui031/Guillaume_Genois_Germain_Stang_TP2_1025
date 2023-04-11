@@ -107,17 +107,19 @@ public class ClientFXView extends BorderPane {
         return this.listView;
     }
 
-    public ComboBox<String> getSessionList() {
-        return this.sessionList;
+    public String getSession() {
+        return this.sessionList.getSelectionModel().getSelectedItem();
     }
 
-    public void updateListView(ArrayList<String> list) {
+    public void updateListView(ArrayList<Course> courses) {
         this.listView.getItems().clear();
-        this.listView.getItems().addAll(list);
+        for (Course course : courses) {
+            this.listView.getItems().add(course.getCode() + " " + course.getName());
+        }
     }
 
-    public String getSelectedCours() {
-        return this.listView.getSelectionModel().getSelectedItem();
+    public int getSelectedCours() {
+        return this.listView.getSelectionModel().getSelectedIndex();
     }
 
     public String getTextInfo(String info) {
