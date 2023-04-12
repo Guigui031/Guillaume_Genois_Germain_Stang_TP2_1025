@@ -1,4 +1,5 @@
 package client.client_fx;
+import erreurs.EmailException;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -154,19 +155,24 @@ public class ClientFXView extends BorderPane {
  */
 
 
-    public String getTextInfo(String info) {
+    public String getTextInfo(String info) throws NullPointerException {
         for (Node row : infoBox.getChildren()) {
             VBox nameBox = (VBox) ((HBox)row).getChildren().get(0);
             Text nameText = (Text) nameBox.getChildren().get(0);
             TextField textField = (TextField) ((HBox)row).getChildren().get(1);
             if (nameText.getText().equals(info)) {
+                if (textField.getText().equals("")) {
+                    throw new NullPointerException(nameText.getText());
+                }
                 return textField.getText();
             }
         }
-        return null;
-        // TODO: exception mauvaise adresse email
+        throw new NullPointerException("*******");
     }
 
+    public void alert(String msg){
+        // faire apparaître une nouvelle fenêtre avec msg d'alerte
+    }
 
 
 }

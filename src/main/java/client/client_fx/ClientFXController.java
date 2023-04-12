@@ -49,15 +49,15 @@ public class ClientFXController {
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
         } catch (NullPointerException e) {
-            e.printStackTrace();  // text info vide
+            vue.alert("Erreur. Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
-            System.out.println("\n-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            vue.alert("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
-            System.out.println("\n-> Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+            vue.alert("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
-            System.out.println(e.getMessage());
+            vue.alert(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("\n-> La classe envoyée par le serveur n'existe pas dans le programme.");
+            vue.alert("La classe envoyée par le serveur n'existe pas dans le programme.");
         }
 
 
@@ -69,6 +69,16 @@ public class ClientFXController {
 
     private void div() {
 
+    }
+
+    private boolean verifyEmail(String email) {
+        try {
+            modele.validateEmail(email);
+            return true;
+        } catch (EmailException e) {
+            vue.alert("Mauvais email. Veuiller écrire un email valide.");
+            return false;
+        }
     }
 
 
