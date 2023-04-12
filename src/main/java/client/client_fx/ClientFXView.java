@@ -33,36 +33,15 @@ public class ClientFXView extends BorderPane {
         VBox inscriptionBox = initInscBox();
 
         // Partie de gauche liste des cours
-        VBox listeCoursBox = new VBox();
-        Label listeCoursLabel = new Label("Liste des cours");
-        listeCoursLabel.setFont(new Font("Arial", 25));
+        VBox listeCoursBox = initListeCoursBox();
 
-
-        listView.getItems().addAll();
-
-        sessionList.getItems().addAll("Automne", "Hiver", "Ete");
-        sessionList.setValue("Automne");
-
-        HBox boutonsBox = new HBox();
-        boutonsBox.getChildren().addAll(sessionList, chargerButton);
-        boutonsBox.setAlignment(Pos.CENTER);
-        boutonsBox.setSpacing(10);
-
-
-        listeCoursBox.getChildren().addAll(listeCoursLabel, listView, boutonsBox);
-        listeCoursBox.setAlignment(Pos.CENTER);
-        listeCoursBox.setPadding(new Insets(0, 25, 0, 25));
-        listeCoursBox.setSpacing(10);
-
-
+        // Aligner les deux parties
         SplitPane splitPane = new SplitPane(listeCoursBox, inscriptionBox);
         splitPane.setOrientation(Orientation.HORIZONTAL);
         splitPane.setDividerPositions(0.5);
         root.setCenter(splitPane);
 
         this.setCenter(root);
-
-        // TODO: exception mauvaise adresse email
     }
 
     private VBox initInscBox() {
@@ -91,7 +70,6 @@ public class ClientFXView extends BorderPane {
         return inscriptionBox;
     }
 
-
     private HBox generateInfo(String info) {
         HBox box = new HBox();
 
@@ -112,7 +90,29 @@ public class ClientFXView extends BorderPane {
         return box;
     }
 
+    private VBox initListeCoursBox() {
+        VBox listeCoursBox = new VBox();
+        Label listeCoursLabel = new Label("Liste des cours");
+        listeCoursLabel.setFont(new Font("Arial", 25));
 
+        listView.getItems().addAll();
+
+        sessionList.getItems().addAll("Automne", "Hiver", "Ete");
+        sessionList.setValue("Automne");
+
+        HBox boutonsBox = new HBox();
+        boutonsBox.getChildren().addAll(sessionList, chargerButton);
+        boutonsBox.setAlignment(Pos.CENTER);
+        boutonsBox.setSpacing(10);
+
+
+        listeCoursBox.getChildren().addAll(listeCoursLabel, listView, boutonsBox);
+        listeCoursBox.setAlignment(Pos.CENTER);
+        listeCoursBox.setPadding(new Insets(0, 25, 0, 25));
+        listeCoursBox.setSpacing(10);
+
+        return listeCoursBox;
+    }
 
     public Button getChargerButton() {
         return this.chargerButton;
@@ -164,6 +164,7 @@ public class ClientFXView extends BorderPane {
             }
         }
         return null;
+        // TODO: exception mauvaise adresse email
     }
 
 

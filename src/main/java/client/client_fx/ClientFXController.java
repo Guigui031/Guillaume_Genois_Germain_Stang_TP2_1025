@@ -2,6 +2,8 @@ package client.client_fx;
 
 import client.ClientModel;
 import erreurs.EmailException;
+import erreurs.InscriptionEchoueeException;
+import erreurs.MauvaisChoixException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class ClientFXController {
             this.vue.updateListView(this.modele.getCours());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
         }
     }
 
@@ -45,9 +50,16 @@ public class ClientFXController {
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
         } catch (NullPointerException e) {
             e.printStackTrace();  // text info vide
-        } catch (EmailException e) {
-            e.printStackTrace(); // mauvais email
+        } catch (IOException e) {
+            System.out.println("\n-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+        } catch (MauvaisChoixException e) {
+            System.out.println("\n-> Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+        } catch (InscriptionEchoueeException e) {
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("\n-> La classe envoyée par le serveur n'existe pas dans le programme.");
         }
+
 
     }
 

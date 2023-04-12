@@ -6,12 +6,15 @@ public class ClientSimpleLauncher {
     public static void main(String[] args) {
         ClientModel modele;
         ClientSimple vue;
+
         try {
             modele = new ClientModel();
             vue = new ClientSimple(modele);
             vue.run();
+            vue.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

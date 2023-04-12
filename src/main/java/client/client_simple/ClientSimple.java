@@ -1,6 +1,9 @@
 package client.client_simple;
 
 import client.ClientModel;
+import erreurs.EmailException;
+import erreurs.InscriptionEchoueeException;
+import erreurs.MauvaisChoixException;
 import server.models.Course;
 
 import java.io.*;
@@ -19,17 +22,12 @@ public class ClientSimple {
     public ClientSimple(ClientModel modele) throws IOException {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
         client = modele;
-        System.out.println("lol");
     }
 
     public void run() {
+        // le controleur
         while (true) {
-            try {
-                handleSessionSelection();
-                handleCoursDisplay();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            handleSessionSelection();
         }
     }
 
@@ -37,12 +35,11 @@ public class ClientSimple {
         this.scanner.close();
     }
 
-    private void handleSessionSelection() throws IOException {
+    private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
-        System.out.print("1. Automne\n2. Hiver\n3. Ete\n> Choix: ");
-
+        System.out.print("1. Automne\n2. Hiver\n3. Été\n> Choix: ");
         try {
-            Integer session = this.scanner.nextInt();
+            int session = this.scanner.nextInt();
 
             switch (session) {
                 case 1:
@@ -55,15 +52,23 @@ public class ClientSimple {
                     this.sessionName = "Ete";
                     break;
                 default:
-                    System.out.println("\n-> Le choix que vous avez effectué n'existe pas...");
+                    System.out.println("-> Le choix que vous avez effectué n'existe pas...");
                     handleSessionSelection();
             }
         } catch (Exception e) {
-            System.out.println("\n-> Le choix que vous avez effectué n'existe pas...");
-            handleSessionSelection();
+            System.out.println("-> Le choix que vous avez effectué n'existe pas...");
+            handleSessionSelection();  // TODO: ou return vu que boucle?
         }
 
-        client.handleCourseRequest(this.sessionName);
+        try {
+            client.handleCourseRequest(this.sessionName);
+            handleCoursDisplay();
+        } catch (IOException e) {
+            System.out.println("-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            // TODO: arrêter le programme?
+        } catch (ClassNotFoundException e) {
+            System.out.println("-> La classe envoyée par le serveur n'existe pas dans le programme.");
+        }
 
     }
 
@@ -72,11 +77,10 @@ public class ClientSimple {
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
         System.out.println(getListCourses());
 
-
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
         try {
-            Integer choix = this.scanner.nextInt();  //TODO: Integer au lieu de int?
+            int choix = this.scanner.nextInt();
 
             switch (choix) {
                 case 1:
@@ -86,26 +90,27 @@ public class ClientSimple {
                     handleCourseSelection();
                     break;
                 default:
-                    System.out.println("\n-> Le choix que vous avez effectué n'existe pas...");
+                    System.out.println("-> Le choix que vous avez effectué n'existe pas...");
                     handleCoursDisplay();
                     break;
             }
         } catch (Exception e) {
-            System.out.println("\n-> Le choix que vous avez effectué n'existe pas...");
+            System.out.println("-> Le choix que vous avez effectué n'existe pas...");
             handleCoursDisplay();
         }
     }
 
     private void handleCourseSelection() {
-        System.out.print("Veuillez saisir votre prénom: ");
         scanner.nextLine();  // pour clear les \n présents
+
+        System.out.print("Veuillez saisir votre prénom: ");
         String prenom = this.scanner.nextLine();
 
         System.out.print("Veuillez saisir votre nom: ");
         String nom = this.scanner.nextLine();
 
         System.out.print("Veuillez saisir votre email: ");
-        String email = this.scanner.nextLine();
+        String email = getGoodEmail(this.scanner.nextLine());
 
         System.out.print("Veuillez saisir votre matricule: ");
         String matricule = this.scanner.nextLine();
@@ -113,7 +118,19 @@ public class ClientSimple {
         System.out.print("Veuillez saisir le code du cours: ");
         String codeCours = this.scanner.nextLine();
 
-        client.validateRegistration(prenom, nom, email, matricule, codeCours);
+        // demande au modèle de s'inscrire au cours
+        try {
+            client.validateRegistration(prenom, nom, email, matricule, codeCours);
+            System.out.println("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
+        } catch (IOException e) {
+            System.out.println("-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+        } catch (MauvaisChoixException e) {
+            System.out.println("-> Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+        } catch (InscriptionEchoueeException e) {
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("-> La classe envoyée par le serveur n'existe pas dans le programme.");
+        }
     }
 
     public String getListCourses() {
@@ -121,8 +138,18 @@ public class ClientSimple {
         int id = 0;
         for (Course element : client.getCours()) {
             id += 1;
-            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
+            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";  // TODO: \n de trop
         }
         return listCourses;
+    }
+
+    private String getGoodEmail(String email) {
+        try {
+            client.validateEmail(email);
+            return email;
+        } catch (EmailException e) {
+            System.out.print("Erreur. Veuillez saisir un bon email: ");
+            return getGoodEmail(this.scanner.nextLine());
+        }
     }
 }

@@ -182,7 +182,7 @@ public class Server {
             objectOutputStream.writeObject("Inscription réussie");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.println("La classe lue n'existe pas dans le programme");
+            System.out.println("La classe lue n'existe pas dans le programme.");
         } catch (IOException e){
             e.printStackTrace();
             System.out.println("Erreur à la lecture du fichier");
