@@ -171,14 +171,23 @@ public class ClientFXView extends BorderPane {
         throw new NullPointerException("*******");
     }
 
-    public void alert(String msg){
-        // faire apparaître une nouvelle fenêtre avec msg d'alerte
-        Alert alert = new Alert(AlertType.INFORMATION);
+    public void alertErreur(String msg){
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erreur...");
         alert.setContentText(msg);
 
         alert.showAndWait();
     }
+
+    public  void alertReussite(String msg) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Success");
+        alert.setContentText(msg);
+
+        alert.showAndWait();
+    }
+
+
 
 
 }

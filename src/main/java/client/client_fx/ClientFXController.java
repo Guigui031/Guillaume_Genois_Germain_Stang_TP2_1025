@@ -49,20 +49,33 @@ public class ClientFXController {
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
             this.modele.validateEmail(email);
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
-
+            vue.alertReussite("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
         } catch (NullPointerException e) {
-            this.vue.alert("Erreur. Le champ " + e.getMessage() + " est vide.");
+            vue.alertErreur("Erreur. Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
-            this.vue.alert("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            vue.alertErreur("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
-            this.vue.alert("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+            vue.alertErreur("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
-            this.vue.alert(e.getMessage());
+            vue.alertErreur(e.getMessage());
         } catch (ClassNotFoundException e) {
-            this.vue.alert("La classe envoyée par le serveur n'existe pas dans le programme.");
-        } catch (EmailException e) {
-            this.vue.alert("Mauvais email. Veuiller écrire un email valide.");
+            vue.alertErreur("La classe envoyée par le serveur n'existe pas dans le programme.");
         }
 
+
+
     }
+
+
+    private boolean verifyEmail(String email) {
+        try {
+            modele.validateEmail(email);
+            return true;
+        } catch (EmailException e) {
+            vue.alertErreur("Mauvais email. Veuiller écrire un email valide.");
+            return false;
+        }
+    }
+
+
 }
