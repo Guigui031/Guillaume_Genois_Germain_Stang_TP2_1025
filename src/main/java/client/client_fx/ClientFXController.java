@@ -1,6 +1,7 @@
 package client.client_fx;
 
 import client.ClientModel;
+import erreurs.EmailException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,12 +36,18 @@ public class ClientFXController {
     }
 
     private void envoyer() {
-        String prenom = this.vue.getTextInfo("Prénom");
-        String nom = this.vue.getTextInfo("Nom");
-        String email = this.vue.getTextInfo("Email");
-        String matricule = this.vue.getTextInfo("Matricule");
-        String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
-        this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
+        try {
+            String prenom = this.vue.getTextInfo("Prénom");
+            String nom = this.vue.getTextInfo("Nom");
+            String email = this.vue.getTextInfo("Email");
+            String matricule = this.vue.getTextInfo("Matricule");
+            String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
+            this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
+        } catch (NullPointerException e) {
+            e.printStackTrace();  // text info vide
+        } catch (EmailException e) {
+            e.printStackTrace(); // mauvais email
+        }
 
     }
 
