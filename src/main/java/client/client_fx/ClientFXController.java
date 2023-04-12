@@ -6,7 +6,6 @@ import erreurs.InscriptionEchoueeException;
 import erreurs.MauvaisChoixException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ClientFXController {
     private ClientModel modele;
@@ -48,17 +47,19 @@ public class ClientFXController {
             String matricule = this.vue.getTextInfo("Matricule");
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
+            vue.alertReussite("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
         } catch (NullPointerException e) {
-            vue.alert("Erreur. Le champ " + e.getMessage() + " est vide.");
+            vue.alertErreur("Erreur. Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
-            vue.alert("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            vue.alertErreur("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
-            vue.alert("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+            vue.alertErreur("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
-            vue.alert(e.getMessage());
+            vue.alertErreur(e.getMessage());
         } catch (ClassNotFoundException e) {
-            vue.alert("La classe envoyée par le serveur n'existe pas dans le programme.");
+            vue.alertErreur("La classe envoyée par le serveur n'existe pas dans le programme.");
         }
+
 
 
     }
@@ -69,7 +70,7 @@ public class ClientFXController {
             modele.validateEmail(email);
             return true;
         } catch (EmailException e) {
-            vue.alert("Mauvais email. Veuiller écrire un email valide.");
+            vue.alertErreur("Mauvais email. Veuiller écrire un email valide.");
             return false;
         }
     }
