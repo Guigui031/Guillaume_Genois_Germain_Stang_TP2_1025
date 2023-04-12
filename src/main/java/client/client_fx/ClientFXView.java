@@ -21,8 +21,9 @@ public class ClientFXView extends BorderPane {
     private ComboBox<String> sessionList = new ComboBox<>();
 
     private Button envoyerButton = new Button("envoyer");
-    private ArrayList<Text> infoNameList = new ArrayList<>();
-    private ArrayList<TextField> infoFieldList = new ArrayList<>();
+    //private ArrayList<Text> infoNameList = new ArrayList<>();
+    //private ArrayList<TextField> infoFieldList = new ArrayList<>();
+    private VBox infoBox = new VBox();
 
     public ClientFXView() {
         BorderPane root = new BorderPane();
@@ -59,6 +60,8 @@ public class ClientFXView extends BorderPane {
         root.setCenter(splitPane);
 
         this.setCenter(root);
+
+        // TODO: exception mauvaise adresse email
     }
 
     private VBox initInscBox() {
@@ -67,7 +70,7 @@ public class ClientFXView extends BorderPane {
         Label inscriptionLabel = new Label("Formulaire d'inscription");
         inscriptionLabel.setFont(new Font("Arial", 25));
 
-        VBox infoBox = new VBox();
+        infoBox = new VBox();
 
         HBox prenomBox = generateInfo("prenom");
         HBox nomBox = generateInfo("nom");
@@ -79,18 +82,18 @@ public class ClientFXView extends BorderPane {
 
         inscriptionBox.getChildren().addAll(inscriptionLabel, infoBox, envoyerButton);
         inscriptionBox.setPadding(new Insets(0, 10, 0, 10));
-        inscriptionBox.setAlignment(Pos.CENTER);
 
         return inscriptionBox;
     }
 
     private HBox generateInfo(String info) {
         HBox box = new HBox();
-        TextField textField = new TextField();
         Text text = new Text(info);
-        box.getChildren().addAll(textField, text);
-        infoNameList.add(text);
-        infoFieldList.add(textField);
+        TextField textField = new TextField();
+        box.getChildren().addAll(text, textField);
+        box.setAlignment(Pos.CENTER);
+        //infoNameList.add(text);
+        //infoFieldList.add(textField);
 
         return box;
     }
@@ -122,10 +125,23 @@ public class ClientFXView extends BorderPane {
         return this.listView.getSelectionModel().getSelectedIndex();
     }
 
+    /*
     public String getTextInfo(String info) {
         for (int i = 0; i < infoNameList.size(); i++) {
             if (infoNameList.get(i).getText().equals(info)) {
                 return infoFieldList.get(i).getText();
+            }
+        }
+        return null;
+    }
+
+     */
+    public String getTextInfo(String info) {
+        for (Node row : infoBox.getChildren()) {
+            Text nameText = (Text) ((HBox)row).getChildren().get(0);
+            TextField textField = (TextField) ((HBox)row).getChildren().get(1);
+            if (nameText.getText().equals(info)) {
+                return textField.getText();
             }
         }
         return null;
