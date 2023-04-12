@@ -1,4 +1,4 @@
-IFT1227	Architecture_des_ordinateurs	24526782	germain	stang	germain.stang@gmail.com
+IFT2256	Base_de_donnees	68867890	Germain	Stang	germain.stang@gmail.com
 IFT1015	Programmation1	fdbdbfd	jgcjvg	fsdbdgb	sfbvdfbd
 IFT2255	Genie_Logiciel	dgnfgn	bherbdt	dgbdgn	dgnfgnfh
 IFT2125	Algorithmique	dgnfgn	bherbdt	dgbdgn	dgnfgnfh
@@ -11,3 +11,4 @@ IFT2255	Genie_Logiciel	sksnckm	grsnjgkn	sljfngkfjn	nnjl@lnjn.
 IFT2255	Genie_Logiciel	jni	ovnos	dosnvon	odsncsodn@isncdms.ca
 IFT2255	Genie_Logiciel	sdcsdn	GG	Gemenois	bob@lol.ca
 IFT2255	Genie_Logiciel	sdifo	osdwrouhrf	sfighso	sogihsf@o.
+IFT1015	Programmation1	hjk	ghj	hjkl	jkl

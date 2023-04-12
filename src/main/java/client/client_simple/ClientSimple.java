@@ -16,9 +16,6 @@ public class ClientSimple {
 
     private Scanner scanner = new Scanner(System.in);
 
-    //TODO: A noter, le scanner est global au client.
-
-
     public ClientSimple(ClientModel modele) {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
         client = modele;
@@ -33,7 +30,6 @@ public class ClientSimple {
 
     public void close() {
         this.scanner.close();
-        // TODO: jamais réellement atteint
     }
 
     private void handleSessionSelection() {
@@ -58,7 +54,7 @@ public class ClientSimple {
             }
         } catch (Exception e) {
             System.out.println("-> Le choix que vous avez effectué n'existe pas...");
-            handleSessionSelection();  // TODO: ou return vu que boucle?
+            return;
         }
 
         try {
@@ -66,7 +62,6 @@ public class ClientSimple {
             handleCoursDisplay();
         } catch (IOException e) {
             System.out.println("-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
-            // TODO: arrêter le programme?
         } catch (ClassNotFoundException e) {
             System.out.println("-> La classe envoyée par le serveur n'existe pas dans le programme.");
         }
@@ -76,7 +71,7 @@ public class ClientSimple {
 
     private void handleCoursDisplay() {
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
-        System.out.println(getListCourses());
+        System.out.print(getListCourses());
 
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
@@ -139,7 +134,7 @@ public class ClientSimple {
         int id = 0;
         for (Course element : client.getCours()) {
             id += 1;
-            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";  // TODO: \n de trop
+            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
         }
         return listCourses;
     }

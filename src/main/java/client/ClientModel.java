@@ -14,8 +14,6 @@ import java.io.*;
 public class ClientModel {
     private ArrayList<Course> cours = new ArrayList<Course>();
 
-    //TODO: Peut-être ré-agencer le code pour être dans le format MVC pour les deux clients.
-
     public void handleCourseRequest(String sessionName) throws IOException, ClassNotFoundException {
         // se connecte au server pour envoyer
         Socket socket = new Socket("127.0.0.1", 1337);

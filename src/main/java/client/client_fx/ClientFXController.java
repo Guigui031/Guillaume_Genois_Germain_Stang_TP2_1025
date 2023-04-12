@@ -63,13 +63,6 @@ public class ClientFXController {
 
     }
 
-    private void dub() {
-
-    }
-
-    private void div() {
-
-    }
 
     private boolean verifyEmail(String email) {
         try {

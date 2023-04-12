@@ -1,5 +1,4 @@
 package client.client_fx;
-import erreurs.EmailException;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -8,6 +7,7 @@ import javafx.scene.text.*;
 import server.models.Course;
 
 import java.util.ArrayList;
+import javafx.scene.control.Alert.AlertType;
 
 /*
  * Dans cette classe nous definissons les éléments graphiques de notre
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ClientFXView extends BorderPane {
 
-    private ListView<String> listView = new ListView<>();  // TODO: default "No content in table"
+    private ListView<String> listView = new ListView<>();
     private Button chargerButton = new Button("charger");
     private ComboBox<String> sessionList = new ComboBox<>();
 
@@ -136,6 +136,7 @@ public class ClientFXView extends BorderPane {
         for (Course course : courses) {
             this.listView.getItems().add(course.getCode() + " " + course.getName());
         }
+        this.listView.getSelectionModel().selectFirst();
     }
 
     public int getSelectedCours() {
@@ -172,6 +173,11 @@ public class ClientFXView extends BorderPane {
 
     public void alert(String msg){
         // faire apparaître une nouvelle fenêtre avec msg d'alerte
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Erreur...");
+        alert.setContentText(msg);
+
+        alert.showAndWait();
     }
 
 
