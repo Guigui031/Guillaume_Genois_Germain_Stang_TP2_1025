@@ -33,49 +33,43 @@ public class ClientFXController {
             this.modele.handleCourseRequest(session);
             this.vue.updateListView(this.modele.getCours());
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Erreur");
+            vue.alertErreur("Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
+        } catch (ClassNotFoundException e) {
+            vue.alertErreur("La classe envoyée par le serveur n'existe pas dans le programme.");
         }
     }
 
     private void envoyer() {
         try {
             String prenom = this.vue.getTextInfo("Prénom");
+
             String nom = this.vue.getTextInfo("Nom");
+
             String email = this.vue.getTextInfo("Email");
+
             String matricule = this.vue.getTextInfo("Matricule");
+
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
+
             this.modele.validateEmail(email);
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
+
             vue.alertReussite("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
+
         } catch (NullPointerException e) {
             vue.alertErreur("Erreur. Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
-            vue.alertErreur("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            vue.alertErreur("Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
             vue.alertErreur("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
             vue.alertErreur(e.getMessage());
         } catch (ClassNotFoundException e) {
             vue.alertErreur("La classe envoyée par le serveur n'existe pas dans le programme.");
-        }
-
-
-
-    }
-
-
-    private boolean verifyEmail(String email) {
-        try {
-            modele.validateEmail(email);
-            return true;
         } catch (EmailException e) {
-            vue.alertErreur("Mauvais email. Veuiller écrire un email valide.");
-            return false;
+            vue.alertErreur("Mauvais email. Veuillez écrire un email valide.");
         }
-    }
 
+    }
 
 }

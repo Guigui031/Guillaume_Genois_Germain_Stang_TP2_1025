@@ -168,7 +168,7 @@ public class ClientFXView extends BorderPane {
                 return textField.getText();
             }
         }
-        throw new NullPointerException("*******");
+        throw new NullPointerException("*******");  // TODO: j'aime pas
     }
 
     public void alertErreur(String msg){
@@ -186,8 +186,5 @@ public class ClientFXView extends BorderPane {
 
         alert.showAndWait();
     }
-
-
-
 
 }

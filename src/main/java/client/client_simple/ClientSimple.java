@@ -61,7 +61,7 @@ public class ClientSimple {
             client.handleCourseRequest(this.sessionName);
             handleCoursDisplay();
         } catch (IOException e) {
-            System.out.println("-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            System.out.println("-> Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (ClassNotFoundException e) {
             System.out.println("-> La classe envoyée par le serveur n'existe pas dans le programme.");
         }
@@ -119,7 +119,7 @@ public class ClientSimple {
             client.validateRegistration(prenom, nom, email, matricule, codeCours);
             System.out.println("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
         } catch (IOException e) {
-            System.out.println("-> Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            System.out.println("-> Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
             System.out.println("-> Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
