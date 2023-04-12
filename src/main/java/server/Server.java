@@ -138,7 +138,7 @@ public class Server {
         ArrayList<Course> courses = new ArrayList<>();
 
         try {
-            FileInputStream fileStream = new FileInputStream("src/main/java/server/data/cours.txt");
+            FileInputStream fileStream = new FileInputStream("data/cours.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -173,19 +173,12 @@ public class Server {
      */
     public void handleRegistration() {
         try {
-            //processCommandLine(objectInputStream.readObject().toString());
-            // stream vs non stream?
-            System.out.println("lol");
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
-            System.out.println(form);
-            FileOutputStream fileStream = new FileOutputStream("src/main/java/server/data/inscription.txt");
-            System.out.println("file");
+            FileOutputStream fileStream = new FileOutputStream("data/inscription.txt", true);
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
-            System.out.println("writer");
-            String msg = form.getCourse().getCode() +"\t" +form.getCourse().getName()+ "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail();
-            writer.append(msg);  // TODO: s'assurer que ajoute au fichier et ne reset pas tout
+            String msg = form.getCourse().getCode() + "\t" + form.getCourse().getName() + "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail() + "\n";
+            writer.append(msg);
             writer.close();
-            System.out.println("inscription");
             objectOutputStream.writeObject("Inscription réussie");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -1,1 +1,7 @@
 IFT1227	Architecture_des_ordinateurs	24526782	germain	stang	germain.stang@gmail.com
+IFT1015	Programmation1	fdbdbfd	jgcjvg	fsdbdgb	sfbvdfbd
+IFT2255	Genie_Logiciel	dgnfgn	bherbdt	dgbdgn	dgnfgnfh
+IFT2125	Algorithmique	dgnfgn	bherbdt	dgbdgn	dgnfgnfh
+IFT2256	Base_de_donnees	rjyhff	tyjrt	rthrgjy	rtjyjh
+IFT1025	Programmation2	rjyhff	tyjrt	rthrgjy	rtjyjh
+IFT1227	Architecture_des_ordinateurs	fnhfnhf	nfyn f	dgnffhn	fgnfhnhg
