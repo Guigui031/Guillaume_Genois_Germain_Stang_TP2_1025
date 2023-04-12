@@ -35,10 +35,10 @@ public class ClientFXController {
     }
 
     private void envoyer() {
-        String prenom = this.vue.getTextInfo("prenom");
-        String nom = this.vue.getTextInfo("nom");
-        String email = this.vue.getTextInfo("email");
-        String matricule = this.vue.getTextInfo("matricule");
+        String prenom = this.vue.getTextInfo("Prénom");
+        String nom = this.vue.getTextInfo("Nom");
+        String email = this.vue.getTextInfo("Email");
+        String matricule = this.vue.getTextInfo("Matricule");
         String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
         this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
 

@@ -21,8 +21,9 @@ public class ClientFXView extends BorderPane {
     private ComboBox<String> sessionList = new ComboBox<>();
 
     private Button envoyerButton = new Button("envoyer");
-    private ArrayList<Text> infoNameList = new ArrayList<>();
-    private ArrayList<TextField> infoFieldList = new ArrayList<>();
+    //private ArrayList<Text> infoNameList = new ArrayList<>();  // TODO: quelle méthode meilleure?
+    //private ArrayList<TextField> infoFieldList = new ArrayList<>();
+    private VBox infoBox = new VBox(10);
 
 
     public ClientFXView() {
@@ -70,7 +71,7 @@ public class ClientFXView extends BorderPane {
         Label inscriptionLabel = new Label("Formulaire d'inscription");
         inscriptionLabel.setFont(new Font("Arial", 25));
 
-        VBox infoBox = new VBox(10);
+        //VBox infoBox = new VBox(10);
         HBox prenomBox = generateInfo("Prénom");
         HBox nomBox = generateInfo("Nom");
         HBox emailBox = generateInfo("Email");
@@ -105,8 +106,8 @@ public class ClientFXView extends BorderPane {
         box.getChildren().addAll(textBox, textField);
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(0, 10, 0, 10));
-        infoNameList.add(text);
-        infoFieldList.add(textField);
+        //infoNameList.add(text);
+        //infoFieldList.add(textField);
 
         return box;
     }
@@ -140,7 +141,7 @@ public class ClientFXView extends BorderPane {
         return this.listView.getSelectionModel().getSelectedIndex();
     }
 
-
+/*
     public String getTextInfo(String info) {
         for (int i = 0; i < infoNameList.size(); i++) {
             if (infoNameList.get(i).getText().equals(info)) {
@@ -150,10 +151,13 @@ public class ClientFXView extends BorderPane {
         return null;
     }
 
-     /*
+ */
+
+
     public String getTextInfo(String info) {
         for (Node row : infoBox.getChildren()) {
-            Text nameText = (Text) ((HBox)row).getChildren().get(0);
+            VBox nameBox = (VBox) ((HBox)row).getChildren().get(0);
+            Text nameText = (Text) nameBox.getChildren().get(0);
             TextField textField = (TextField) ((HBox)row).getChildren().get(1);
             if (nameText.getText().equals(info)) {
                 return textField.getText();
@@ -162,6 +166,6 @@ public class ClientFXView extends BorderPane {
         return null;
     }
 
-      */
+
 
 }
