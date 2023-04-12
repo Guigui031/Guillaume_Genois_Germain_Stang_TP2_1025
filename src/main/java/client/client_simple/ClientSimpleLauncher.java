@@ -11,6 +11,6 @@ public class ClientSimpleLauncher {
         vue = new ClientSimple(modele);
         vue.run();
         vue.close();
-        // TODO: nécessaire de try?
+
     }
 }

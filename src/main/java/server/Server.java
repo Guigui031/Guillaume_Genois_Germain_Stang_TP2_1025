@@ -41,11 +41,7 @@ public class Server {
         this.handlers.add(h);
     }
 
-    /**
-     Alertes tous les gestionnaires d'événements enregistrés pour ce Serveur avec la commande et l'argument spécifiés.
-     @param cmd la commande à transmettre aux gestionnaires d'événements
-     @param arg l'argument à transmettre aux gestionnaires d'événements
-     */
+
     private void alertHandlers(String cmd, String arg) {
         for (EventHandler h : this.handlers) {
             h.handle(cmd, arg);
@@ -133,12 +129,13 @@ public class Server {
      Ensuite, elle renvoie la liste des cours pour une session au client en utilisant l'objet 'objectOutputStream'.
      @param arg la session pour laquelle on veut récupérer la liste des cours
      @throws Exception si une erreur se produit lors de la lecture du fichier ou de l'écriture de l'objet dans le flux
+     @r
      */
     public void handleLoadCourses(String arg) {
         ArrayList<Course> courses = new ArrayList<>();
 
         try {
-            FileInputStream fileStream = new FileInputStream("data/cours.txt");
+            FileInputStream fileStream = new FileInputStream("src/main/java/server/data/cours.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -174,7 +171,7 @@ public class Server {
     public void handleRegistration() {
         try {
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
-            FileOutputStream fileStream = new FileOutputStream("data/inscription.txt", true);
+            FileOutputStream fileStream = new FileOutputStream("src/main/java/server/data/inscription.txt", true);
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
             String msg = form.getCourse().getCode() + "\t" + form.getCourse().getName() + "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail() + "\n";
             writer.append(msg);
