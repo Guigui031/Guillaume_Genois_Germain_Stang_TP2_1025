@@ -51,7 +51,7 @@ public class ClientModel {
         // récupère la réponse du serveur
         InputStream inputStream = socket.getInputStream();
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        String reussite = (String) objectInputStream.readObject();  // ClassNotFoundException si pas capable de lire le String
+        String reussite = (String) objectInputStream.readObject();  // ClassNotFoundException si pas capable de lire l'objet
 
         // analyse la réponse
         if (!reussite.equals("Inscription réussie")) {
