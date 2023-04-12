@@ -16,10 +16,6 @@ public class ClientModel {
 
     //TODO: Peut-être ré-agencer le code pour être dans le format MVC pour les deux clients.
 
-    public static void main(String[] args) {
-        // TODO: qqch ici?
-    }
-
     public void handleCourseRequest(String sessionName) throws IOException, ClassNotFoundException {
         // se connecte au server pour envoyer
         Socket socket = new Socket("127.0.0.1", 1337);

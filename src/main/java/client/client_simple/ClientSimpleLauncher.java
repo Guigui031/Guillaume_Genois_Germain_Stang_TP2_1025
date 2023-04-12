@@ -7,14 +7,10 @@ public class ClientSimpleLauncher {
         ClientModel modele;
         ClientSimple vue;
 
-        try {
-            modele = new ClientModel();
-            vue = new ClientSimple(modele);
-            vue.run();
-            vue.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        modele = new ClientModel();
+        vue = new ClientSimple(modele);
+        vue.run();
+        vue.close();
+        // TODO: nécessaire de try?
     }
 }

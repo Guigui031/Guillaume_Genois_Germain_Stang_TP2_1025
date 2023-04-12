@@ -19,7 +19,7 @@ public class ClientSimple {
     //TODO: A noter, le scanner est global au client.
 
 
-    public ClientSimple(ClientModel modele) throws IOException {
+    public ClientSimple(ClientModel modele) {
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
         client = modele;
     }
@@ -33,6 +33,7 @@ public class ClientSimple {
 
     public void close() {
         this.scanner.close();
+        // TODO: jamais réellement atteint
     }
 
     private void handleSessionSelection() {
