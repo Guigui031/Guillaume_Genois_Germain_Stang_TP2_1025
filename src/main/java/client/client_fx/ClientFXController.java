@@ -57,7 +57,7 @@ public class ClientFXController {
             vue.alertReussite("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
 
         } catch (NullPointerException e) {
-            vue.alertErreur("Erreur. Le champ " + e.getMessage() + " est vide.");
+            vue.alertErreur("Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
             vue.alertErreur("Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {

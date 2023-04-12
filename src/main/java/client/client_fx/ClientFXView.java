@@ -139,8 +139,12 @@ public class ClientFXView extends BorderPane {
         this.listView.getSelectionModel().selectFirst();
     }
 
-    public int getSelectedCours() {
-        return this.listView.getSelectionModel().getSelectedIndex();
+    public int getSelectedCours() throws NullPointerException {
+        int index = this.listView.getSelectionModel().getSelectedIndex();
+        if (index >= 0) {
+            return index;
+        }
+        throw new NullPointerException("cours");
     }
 
 /*
