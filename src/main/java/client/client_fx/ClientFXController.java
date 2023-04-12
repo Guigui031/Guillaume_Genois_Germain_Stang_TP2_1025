@@ -47,39 +47,22 @@ public class ClientFXController {
             String email = this.vue.getTextInfo("Email");
             String matricule = this.vue.getTextInfo("Matricule");
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
+            this.modele.validateEmail(email);
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
+
         } catch (NullPointerException e) {
-            vue.alert("Erreur. Le champ " + e.getMessage() + " est vide.");
+            this.vue.alert("Erreur. Le champ " + e.getMessage() + " est vide.");
         } catch (IOException e) {
-            vue.alert("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
+            this.vue.alert("Erreur dans la connection au serveur. Veuiller vous assurez qu'il est actif.");
         } catch (MauvaisChoixException e) {
-            vue.alert("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
+            this.vue.alert("Le choix \"" + e.getMessage() + "\" que vous avez effectué n'existe pas.");
         } catch (InscriptionEchoueeException e) {
-            vue.alert(e.getMessage());
+            this.vue.alert(e.getMessage());
         } catch (ClassNotFoundException e) {
-            vue.alert("La classe envoyée par le serveur n'existe pas dans le programme.");
-        }
-
-
-    }
-
-    private void dub() {
-
-    }
-
-    private void div() {
-
-    }
-
-    private boolean verifyEmail(String email) {
-        try {
-            modele.validateEmail(email);
-            return true;
+            this.vue.alert("La classe envoyée par le serveur n'existe pas dans le programme.");
         } catch (EmailException e) {
-            vue.alert("Mauvais email. Veuiller écrire un email valide.");
-            return false;
+            this.vue.alert("Mauvais email. Veuiller écrire un email valide.");
         }
+
     }
-
-
 }

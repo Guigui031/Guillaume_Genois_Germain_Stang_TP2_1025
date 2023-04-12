@@ -75,7 +75,7 @@ public class ClientModel {
     }
 
     public void validateEmail(String email) throws EmailException {
-        if (!email.matches("(.*)@(.*).(.*)")) {
+        if (!email.matches("^(.+)@(.+)$")) {
             throw new EmailException("Mauvais email");
         }
     }

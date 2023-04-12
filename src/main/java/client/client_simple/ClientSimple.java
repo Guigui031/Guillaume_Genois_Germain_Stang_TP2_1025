@@ -76,7 +76,7 @@ public class ClientSimple {
 
     private void handleCoursDisplay() {
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
-        System.out.println(getListCourses());
+        System.out.print(getListCourses());
 
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
