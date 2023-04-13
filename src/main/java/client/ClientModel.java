@@ -109,7 +109,7 @@ public class ClientModel {
      * @throws EmailException si le email n'est pas valide
      */
     public void validateEmail(String email) throws EmailException {
-        if (!email.matches("^(.+)@(.+).(.+)$")) {
+        if (!email.matches("^(.+)@(.+)\\.(.+)$")) {
             throw new EmailException("Mauvais email");
         }
     }
