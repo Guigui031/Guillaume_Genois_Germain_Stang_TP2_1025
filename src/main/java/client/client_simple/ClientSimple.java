@@ -43,7 +43,8 @@ public class ClientSimple {
     }
 
     /**
-     *
+     * Imprime pour l'utilisateur le choix de sessions possibles
+     * puis gère la réponse donnée par l'utilisateur.
      */
     private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
@@ -63,13 +64,13 @@ public class ClientSimple {
                     break;
                 default:
                     System.out.println("-> Le choix que vous avez effectué n'existe pas...");
-                    handleSessionSelection();
+                    return;
             }
         } catch (Exception e) {
             System.out.println("-> Le choix que vous avez effectué n'existe pas...");
             return;
         }
-
+        // TODO: séparer en différentes fonctions?
         try {
             client.handleCourseRequest(this.sessionName);
             handleCoursDisplay();
@@ -81,13 +82,21 @@ public class ClientSimple {
 
     }
 
-
+    /**
+     * Imprime les cours disponibles de la session sélectionnée par l'utilisateur et lui donne le choix
+     * de s'inscrire à un cours ou de sélectionner une autre session.
+     * On gère la réponse de l'utilisateur ensuite.
+     */
     private void handleCoursDisplay() {
+        // TODO: nécessaire d'avoir sessionName global?
+        // Imprime les cours offerts pendant la session sélectionnée
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
         System.out.print(getListCoursesToString());
 
+        // Imprime les choix d'actions à faire disponibles
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
+        // Gérer le choix de l'utilisateur
         try {
             int choix = this.scanner.nextInt();
 
@@ -109,8 +118,14 @@ public class ClientSimple {
         }
     }
 
+    // TODO: parle des catchs même si pas throw?
+    /**
+     * Demande à l'utilisateur les informations nécessaires à son inscription à un cours.
+     * On vérifie aussi si les informations sont bonnes si nécessaire.
+     * Puis on l'inscrit au cours.
+     */
     private void handleCourseSelection() {
-        scanner.nextLine();  // pour clear les \n présents
+        scanner.nextLine();  // pour clear les \n déjà présents
 
         System.out.print("Veuillez saisir votre prénom: ");
         String prenom = this.scanner.nextLine();
@@ -119,10 +134,10 @@ public class ClientSimple {
         String nom = this.scanner.nextLine();
 
         System.out.print("Veuillez saisir votre email: ");
-        String email = getGoodEmail(this.scanner.nextLine());
+        String email = getGoodEmail(this.scanner.nextLine());  // vérifie format email
 
         System.out.print("Veuillez saisir votre matricule: ");
-        String matricule = getGoodMatricule(this.scanner.nextLine());
+        String matricule = getGoodMatricule(this.scanner.nextLine());  // vérifie format matricule
 
         System.out.print("Veuillez saisir le code du cours: ");
         String codeCours = this.scanner.nextLine();
@@ -142,7 +157,12 @@ public class ClientSimple {
         }
     }
 
+    /**
+     * Formatte les cours disponibles pour l'affichage à l'utilisateur.
+     * @return le String à afficher
+     */
     public String getListCoursesToString() {
+        // TODO: si liste vide, imprime "Aucun cours disponible"?
         String listCourses = "";
         int id = 0;
         for (Course element : client.getCours()) {
@@ -152,6 +172,12 @@ public class ClientSimple {
         return listCourses;
     }
 
+    /**
+     * Vérifie que le email est un email avec un bon format
+     * S'il ne l'est pas, en redemande un nouveau à l'utilisateur.
+     * @param email le email donné par l'utilisateur à vérifier le format
+     * @return un email avec un bon format
+     */
     private String getGoodEmail(String email) {
         try {
             client.validateEmail(email);
@@ -162,6 +188,12 @@ public class ClientSimple {
         }
     }
 
+    /**
+     * Vérifie que le matricule est un matricule avec un bon format
+     * S'il ne l'est pas, en redemande un nouveau à l'utilisateur.
+     * @param matricule le matricule donné par l'utilisateur à vérifier le format
+     * @return un matricule avec un bon format
+     */
     private String getGoodMatricule(String matricule) {
         try {
             client.validateMatricule(matricule);
