@@ -6,14 +6,12 @@ import javafx.stage.Stage;
 
 public class ClientFXLauncher extends Application {
 
-    //TODO: POURQUOI TRHOW EXCEPTION ICI ?
     /**
      * Permet le démarage de la stage javaFx avec la scéne générée par la vue et controllée par le controller.
      * @param stage la stage javaFX.
-     * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         ClientModel model = new ClientModel();
         ClientFXView view = new ClientFXView();
         ClientFXController controller = new ClientFXController(model, view);

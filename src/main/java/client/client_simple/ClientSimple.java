@@ -40,6 +40,7 @@ public class ClientSimple {
         this.scanner.close();
     }
 
+
     /**
      * Imprime pour l'utilisateur le choix de sessions possibles
      * puis gère la réponse donnée par l'utilisateur.
@@ -47,10 +48,8 @@ public class ClientSimple {
     private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
         System.out.print("1. Automne\n2. Hiver\n3. Été\n> Choix: ");
-
         try {
             int session = this.scanner.nextInt();
-
             switch (session) {
                 case 1:
                     this.sessionName = "Automne";
@@ -69,7 +68,6 @@ public class ClientSimple {
             System.out.println("-> Le choix que vous avez effectué n'existe pas...");
             return;
         }
-        // TODO: séparer en différentes fonctions?
         try {
             client.handleCourseRequest(this.sessionName);
             handleCoursesDisplay();
@@ -159,14 +157,16 @@ public class ClientSimple {
      * @return le String à afficher
      */
     public String getListCoursesToString() {
-        // TODO: si liste vide, imprime "Aucun cours disponible"?
-        String listCourses = "";
-        int id = 0;
-        for (Course element : client.getCours()) {
-            id += 1;
-            listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
+        if(!client.getCours().isEmpty()) {
+            String listCourses = "";
+            int id = 0;
+            for (Course element : client.getCours()) {
+                id += 1;
+                listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
+            }
+            return listCourses;
         }
-        return listCourses;
+        return "Aucun cours n'est offert à cette session.\n";
     }
 
     /**
