@@ -9,6 +9,10 @@ import erreurs.MauvaisChoixException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Dans cette classe nous définissons le controller de notre clientfx.
+ * Il contrôle notre clientFxView.
+ */
 public class ClientFXController {
     private ClientModel modele;
     private ClientFXView vue;

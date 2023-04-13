@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javafx.beans.binding.*;
 import javafx.scene.control.Alert.AlertType;
 
-/*
+/**
  * Dans cette classe nous definissons les éléments graphiques de notre
  * application.
  * Notez que cette classe est completement independante de toute definition
