@@ -14,11 +14,11 @@ import java.util.Arrays;
 public class Server {
 
     /**
-     * Commande d'inscription à un cours observer par le serveur.
+     * Commande d'inscription à un cours observée par le serveur.
      */
     public final static String REGISTER_COMMAND = "INSCRIRE";
     /**
-     * Commande de chargement des cours observer par le serveur.
+     * Commande de chargement des cours observée par le serveur.
      */
     public final static String LOAD_COMMAND = "CHARGER";
     private final ServerSocket server;
