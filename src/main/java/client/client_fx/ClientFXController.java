@@ -13,6 +13,11 @@ public class ClientFXController {
     private ClientFXView vue;
 
 
+    /**
+     * Constructeur du Controller ClientFx.
+     * @param m model du ClientFX.
+     * @param v vue du ClientFX.
+     */
     public ClientFXController(ClientModel m, ClientFXView v) {
         this.modele = m;
         this.vue = v;
@@ -27,6 +32,11 @@ public class ClientFXController {
 
     }
 
+    /**
+     * Charger les cours depuis le model puis mettre à jour la listeView de la vue.
+     * @exception  IOException si echec de la connection au serveur.
+     * @exception ClassNotFoundException si la classe envoyé par le serveur ne correspond pas à Course.
+     */
     private void charger() {
         String session = this.vue.getSession();
         try {
@@ -39,6 +49,15 @@ public class ClientFXController {
         }
     }
 
+    /**
+     * Envoyer les données du formulaire relatives à l'inscription à un cours.
+     * @exception NullPointerException si un champs est vide.
+     * @exception IOException si echec de la connection au serveur.
+     * @exception MauvaisChoixException si le cours choisis n'est pas existant.
+     * @exception InscriptionEchoueeException si il y a une erreur avec le serveur lors de l'inscription.
+     * @exception ClassNotFoundException si la classe renvoyée par le serveur ne correspond pas à la classe attendue.
+     * @exception EmailException si le champs email ne respecte pas le format d'un email.
+     */
     private void envoyer() {
         try {
             String prenom = this.vue.getTextInfo("Prénom");
