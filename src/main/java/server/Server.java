@@ -13,7 +13,13 @@ import java.util.Arrays;
 
 public class Server {
 
+    /**
+     * Commande d'inscription à un cours observer par le serveur.
+     */
     public final static String REGISTER_COMMAND = "INSCRIRE";
+    /**
+     * Commande de chargement des cours observer par le serveur.
+     */
     public final static String LOAD_COMMAND = "CHARGER";
     private final ServerSocket server;
     private Socket client;
@@ -134,13 +140,12 @@ public class Server {
      Ensuite, elle renvoie la liste des cours pour une session au client en utilisant l'objet 'objectOutputStream'.
      @param arg la session pour laquelle on veut récupérer la liste des cours
      @throws Exception si une erreur se produit lors de la lecture du fichier ou de l'écriture de l'objet dans le flux
-     @r
      */
     public void handleLoadCourses(String arg) {
         ArrayList<Course> courses = new ArrayList<>();
 
         try {
-        System.out.println(new File("").getAbsolutePath());
+
             FileInputStream fileStream = new FileInputStream("src/main/java/server/data/cours.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -161,11 +166,16 @@ public class Server {
             inputStreamReader.close();
             fileStream.close();
 
-            objectOutputStream.writeObject(courses);
-
+            try {
+                objectOutputStream.writeObject(courses);
+            } catch (IOException e) {
+                System.out.println("Erreur lors de l'ecriture de l'objet dans le flux de sortie.");
+                e.printStackTrace();
+            }
         } catch (IOException e) {
+            System.out.println("Erreur lors de la lecture du fichier.");
             e.printStackTrace();
-        } // TODO: catch de l'exception lors du flux de sortie?
+        }
 
     }
 

@@ -14,7 +14,6 @@ public class ClientSimple {
     // TODO: commentaires des variables
     private ClientModel client;
     private String sessionName;
-
     private Scanner scanner = new Scanner(System.in);
 
     /**

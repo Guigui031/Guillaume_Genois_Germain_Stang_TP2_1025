@@ -225,7 +225,7 @@ public class ClientFXView extends BorderPane {
                 return textField.getText();
             }
         }
-        throw new NullPointerException("*******");  // TODO: j'aime pas
+        throw new NullPointerException("Champ non existant");
     }
 
     /**
