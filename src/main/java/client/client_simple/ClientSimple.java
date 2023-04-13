@@ -3,6 +3,7 @@ package client.client_simple;
 import client.ClientModel;
 import erreurs.EmailException;
 import erreurs.InscriptionEchoueeException;
+import erreurs.MatriculeException;
 import erreurs.MauvaisChoixException;
 import server.models.Course;
 
@@ -109,7 +110,7 @@ public class ClientSimple {
         String email = getGoodEmail(this.scanner.nextLine());
 
         System.out.print("Veuillez saisir votre matricule: ");
-        String matricule = this.scanner.nextLine();
+        String matricule = getGoodMatricule(this.scanner.nextLine());
 
         System.out.print("Veuillez saisir le code du cours: ");
         String codeCours = this.scanner.nextLine();
@@ -146,6 +147,16 @@ public class ClientSimple {
         } catch (EmailException e) {
             System.out.print("Erreur. Veuillez saisir un bon email: ");
             return getGoodEmail(this.scanner.nextLine());
+        }
+    }
+
+    private String getGoodMatricule(String matricule) {
+        try {
+            client.validateMatricule(matricule);
+            return matricule;
+        } catch (MatriculeException e) {
+            System.out.print("Erreur. Veuillez saisir un bon matricule: ");
+            return getGoodMatricule(this.scanner.nextLine());
         }
     }
 }

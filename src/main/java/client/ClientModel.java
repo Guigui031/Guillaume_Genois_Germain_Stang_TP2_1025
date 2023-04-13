@@ -1,8 +1,6 @@
 package client;
-import erreurs.EmailException;
+import erreurs.*;
 import erreurs.InscriptionEchoueeException;
-import erreurs.InscriptionEchoueeException;
-import erreurs.MauvaisChoixException;
 import server.models.Course;
 import server.models.RegistrationForm;
 
@@ -75,6 +73,12 @@ public class ClientModel {
     public void validateEmail(String email) throws EmailException {
         if (!email.matches("^(.+)@(.+)$")) {
             throw new EmailException("Mauvais email");
+        }
+    }
+
+    public void validateMatricule(String matricule) throws MatriculeException {
+        if (!matricule.matches("^\\d{8}$")) {
+            throw new MatriculeException("Mauvais matricule");
         }
     }
 

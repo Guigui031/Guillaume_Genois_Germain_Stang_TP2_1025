@@ -3,6 +3,7 @@ package client.client_fx;
 import client.ClientModel;
 import erreurs.EmailException;
 import erreurs.InscriptionEchoueeException;
+import erreurs.MatriculeException;
 import erreurs.MauvaisChoixException;
 
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class ClientFXController {
             String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
 
             this.modele.validateEmail(email);
+            this.modele.validateMatricule(matricule);
             this.modele.validateRegistration(prenom, nom, email, matricule, codeCours);
 
             vue.alertReussite("Félicitations! Inscription réussie de " + prenom + " au cours " + codeCours + ".");
@@ -87,6 +89,8 @@ public class ClientFXController {
             vue.alertErreur("La classe envoyée par le serveur n'existe pas dans le programme.");
         } catch (EmailException e) {
             vue.alertErreur("Mauvais email. Veuillez écrire un email valide.");
+        } catch (MatriculeException e) {
+            vue.alertErreur("Mauvais matricule. Veuillez écrire un matricule valide.");
         }
 
     }
