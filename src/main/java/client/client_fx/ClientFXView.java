@@ -27,7 +27,7 @@ public class ClientFXView extends BorderPane {
 
 
     /**
-     * Constructeur du de la view du ClientFX qui créé la scnène javaFX.
+     * Constructeur de la view du ClientFX qui crée la scène javaFX.
      */
     public ClientFXView() {
         BorderPane root = new BorderPane();

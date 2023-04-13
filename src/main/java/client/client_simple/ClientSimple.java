@@ -11,28 +11,40 @@ import java.io.*;
 import java.util.Scanner;
 
 public class ClientSimple {
-
+    // TODO: commentaires des variables
     private ClientModel client;
     private String sessionName;
 
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Constructeur du ClientSimple annonçant son bon départ.
+     * @param modele initialise globalement le modèle que le client utilisera pour ses calculs
+     */
     public ClientSimple(ClientModel modele) {
-        System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
         client = modele;
+        System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
     }
 
+    /**
+     * Boucle principal permettant de répéter l'inscription aux cours.
+     */
     public void run() {
-        // le controleur
         while (true) {
             handleSessionSelection();
         }
     }
 
+    /**
+     * Ferme le scanner à la fermeture du client.
+     */
     public void close() {
         this.scanner.close();
     }
 
+    /**
+     *
+     */
     private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
         System.out.print("1. Automne\n2. Hiver\n3. Été\n> Choix: ");
@@ -72,7 +84,7 @@ public class ClientSimple {
 
     private void handleCoursDisplay() {
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
-        System.out.print(getListCourses());
+        System.out.print(getListCoursesToString());
 
         System.out.print("> Choix:\n1. Consulter les cours offerts pour une autre session\n2. Inscription à un cours.\n> Choix: ");
 
@@ -130,7 +142,7 @@ public class ClientSimple {
         }
     }
 
-    public String getListCourses() {
+    public String getListCoursesToString() {
         String listCourses = "";
         int id = 0;
         for (Course element : client.getCours()) {
