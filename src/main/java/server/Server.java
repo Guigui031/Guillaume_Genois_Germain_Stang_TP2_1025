@@ -169,7 +169,7 @@ public class Server {
             try {
                 objectOutputStream.writeObject(courses);
             } catch (IOException e) {
-                System.out.println("Erreur lors de l'ecriture de l'objet dans le flux de sortie.");
+                System.out.println("Erreur lors de l'écriture de l'objet dans le flux de sortie.");
                 e.printStackTrace();
             }
         } catch (IOException e) {
@@ -187,20 +187,30 @@ public class Server {
     public void handleRegistration() {
         try {
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
+
             FileOutputStream fileStream = new FileOutputStream("src/main/java/server/data/inscription.txt", true);
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
             String msg = form.getCourse().getCode() + "\t" + form.getCourse().getName() + "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail() + "\n";
             writer.append(msg);
             writer.close();
-            objectOutputStream.writeObject("Inscription réussie");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("La classe lue n'existe pas dans le programme.");
-        } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Erreur à la lecture du fichier");
-        } // TODO: catch de l'exception lors du flux de sortie?
 
+            try {
+                objectOutputStream.writeObject("Inscription réussie");
+            } catch (IOException e) {
+                System.out.println("Erreur lors de l'écriture de l'objet dans le flux de sortie.");
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Erreur à la lecture du fichier");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("La classe lue n'existe pas dans le programme.");
+            e.printStackTrace();
+        } catch (IOException e){
+            System.out.println("Erreur à la lecture de l'objet");
+            e.printStackTrace();
+        }
     }
 }
 

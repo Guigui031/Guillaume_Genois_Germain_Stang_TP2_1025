@@ -11,7 +11,6 @@ import java.io.*;
 import java.util.Scanner;
 
 public class ClientSimple {
-    // TODO: commentaires des variables
     private ClientModel client;
     private String sessionName;
     private Scanner scanner = new Scanner(System.in);
@@ -48,6 +47,7 @@ public class ClientSimple {
     private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
         System.out.print("1. Automne\n2. Hiver\n3. Été\n> Choix: ");
+
         try {
             int session = this.scanner.nextInt();
 
@@ -72,7 +72,7 @@ public class ClientSimple {
         // TODO: séparer en différentes fonctions?
         try {
             client.handleCourseRequest(this.sessionName);
-            handleCoursDisplay();
+            handleCoursesDisplay();
         } catch (IOException e) {
             System.out.println("-> Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (ClassNotFoundException e) {
@@ -86,8 +86,7 @@ public class ClientSimple {
      * de s'inscrire à un cours ou de sélectionner une autre session.
      * On gère la réponse de l'utilisateur ensuite.
      */
-    private void handleCoursDisplay() {
-        // TODO: nécessaire d'avoir sessionName global?
+    private void handleCoursesDisplay() {
         // Imprime les cours offerts pendant la session sélectionnée
         System.out.println("Les cours offerts pendant la session d'" + this.sessionName + " sont:");
         System.out.print(getListCoursesToString());
@@ -108,16 +107,15 @@ public class ClientSimple {
                     break;
                 default:
                     System.out.println("-> Le choix que vous avez effectué n'existe pas...");
-                    handleCoursDisplay();
+                    handleCoursesDisplay();
                     break;
             }
         } catch (Exception e) {
             System.out.println("-> Le choix que vous avez effectué n'existe pas...");
-            handleCoursDisplay();
+            handleCoursesDisplay();
         }
     }
 
-    // TODO: parle des catchs même si pas throw?
     /**
      * Demande à l'utilisateur les informations nécessaires à son inscription à un cours.
      * On vérifie aussi si les informations sont bonnes si nécessaire.
