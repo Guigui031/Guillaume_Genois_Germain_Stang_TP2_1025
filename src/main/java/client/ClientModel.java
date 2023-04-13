@@ -10,8 +10,15 @@ import java.io.*;
 
 
 public class ClientModel {
-    private ArrayList<Course> cours = new ArrayList<Course>();
+    private ArrayList<Course> cours = new ArrayList<>();
 
+    /**
+     * Envoie la requête au serveur de charger les cours disponibles à la session donnée
+     * et les récupère pour les stocker globalement.
+     * @param sessionName la session dont nous voulons récupérer les cours disponibles
+     * @throws IOException si ne se connecte pas au serveur
+     * @throws ClassNotFoundException si n'est pas capable de lire l'objet reçue en réponse du serveur
+     */
     public void handleCourseRequest(String sessionName) throws IOException, ClassNotFoundException {
         // se connecte au server pour envoyer
         Socket socket = new Socket("127.0.0.1", 1337);
@@ -25,11 +32,18 @@ public class ClientModel {
         // récupère la réponse du serveur
         InputStream inputStream = socket.getInputStream();
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        this.cours = (ArrayList<Course>) objectInputStream.readObject();  // ClassNotFoundException si pas capable de lire l'objet
+        this.cours = (ArrayList<Course>) objectInputStream.readObject();
 
         dataOutputStream.close();
     }
 
+    /**
+     * Envoie la requête au serveur d'inscrire le formulaire d'inscription donnée.
+     * @param form le formulaire d'inscription à envoyer au serveur
+     * @throws IOException si ne se connecte pas au serveur
+     * @throws ClassNotFoundException si n'est pas capable de lire l'objet reçue en réponse du serveur
+     * @throws InscriptionEchoueeException si ne reçoit pas la confirmation d'inscription réussite du serveur
+     */
     private void handleCourseRegistration(RegistrationForm form) throws IOException, ClassNotFoundException, InscriptionEchoueeException {
         // se connecte au server pour envoyer
         Socket socket = new Socket("127.0.0.1", 1337);
@@ -47,7 +61,7 @@ public class ClientModel {
         // récupère la réponse du serveur
         InputStream inputStream = socket.getInputStream();
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        String reussite = (String) objectInputStream.readObject();  // ClassNotFoundException si pas capable de lire l'objet
+        String reussite = (String) objectInputStream.readObject();
 
         // analyse la réponse
         if (!reussite.equals("Inscription réussie")) {
@@ -56,11 +70,29 @@ public class ClientModel {
         dataOutputStream.close();
     }
 
+    /**
+     * Valide si l'inscription à un cours par l'utilisateur est un succès.
+     * @param prenom le prénom de l'étudiant à inscrire
+     * @param nom le nom de l'étudiant à inscrire
+     * @param email le email bien formatté de l'étudiant à inscrire
+     * @param matricule le matricule bien formatté de l'étudiant à inscrire
+     * @param codeCours le code du cours où l'étudiant essaye de s'inscrire
+     * @throws MauvaisChoixException si le choix de cours n'existe pas
+     * @throws IOException si ne se connecte pas au serveur
+     * @throws ClassNotFoundException si n'est pas capable de lire l'objet reçue en réponse du serveur
+     * @throws InscriptionEchoueeException si ne reçoit pas la confirmation d'inscription réussite du serveur
+     */
     public void validateRegistration(String prenom, String nom, String email, String matricule, String codeCours) throws MauvaisChoixException, IOException, InscriptionEchoueeException, ClassNotFoundException {
-        Course course = findCourse(codeCours);  // envoie erreur de choix si cours n'existe pas
-        handleCourseRegistration(new RegistrationForm(prenom, nom, email, matricule, course));  // envoie erreur de connection au serveur
+        Course course = findCourse(codeCours);
+        handleCourseRegistration(new RegistrationForm(prenom, nom, email, matricule, course));
     }
 
+    /**
+     * Cherche pour un objet Course dont le code du cours correspond au code de cours donné.
+     * @param codeCours le code du cours à trouver
+     * @return le cours Course s'il est trouvé
+     * @throws MauvaisChoixException si le code de cours ne correspond à aucun cours
+     */
     private Course findCourse(String codeCours) throws MauvaisChoixException {
         for (Course element : cours) {
             if (element.getCode().equals(codeCours)) {
@@ -70,18 +102,34 @@ public class ClientModel {
         throw new MauvaisChoixException(codeCours);
     }
 
+    /**
+     * Vérifie qu'un email donné soit dans un format valide,
+     * c'est-à-dire avec au moins un caractère avant @ et au moins des caractères après dont un . parmi eux
+     * @param email le email à valider
+     * @throws EmailException si le email n'est pas valide
+     */
     public void validateEmail(String email) throws EmailException {
-        if (!email.matches("^(.+)@(.+)$")) {
+        if (!email.matches("^(.+)@(.+).(.+)$")) {
             throw new EmailException("Mauvais email");
         }
     }
 
+    /**
+     * Vérifie qu'un matricule donné soit dans un format valide,
+     * c'est-à-dire avec exactement 8 chiffres.
+     * @param matricule le matricule à valider
+     * @throws MatriculeException si le matricule n'est pas valide
+     */
     public void validateMatricule(String matricule) throws MatriculeException {
         if (!matricule.matches("^\\d{8}$")) {
             throw new MatriculeException("Mauvais matricule");
         }
     }
 
+    /**
+     * Retourne la liste de cours disponibles.
+     * @return ArrayList des cours
+     */
     public ArrayList<Course> getCours() {
         return cours;
     }
