@@ -10,6 +10,10 @@ import server.models.Course;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Dans cette classe, nous définissons les éléments graphiques du client simple et
+ * nous gérons les interactions avec l'utilisateur par l'entremise du modèle.
+ */
 public class ClientSimple {
     private ClientModel client;
     private String sessionName;
@@ -44,6 +48,9 @@ public class ClientSimple {
     /**
      * Imprime pour l'utilisateur le choix de sessions possibles
      * puis gère la réponse donnée par l'utilisateur.
+     * @throws Exception si l'entrée donnée par l'utilisateur pour le choix de session n'est pas valide
+     * @throws IOException si ne se connecte pas au serveur
+     * @throws ClassNotFoundException si n'est pas capable de lire l'objet reçue en réponse du serveur
      */
     private void handleSessionSelection() {
         System.out.println("Veuillez choisir la session pour laquelle vous souhaitez consulter la liste de cours:");
@@ -68,6 +75,8 @@ public class ClientSimple {
             System.out.println("-> Le choix que vous avez effectué n'existe pas...");
             return;
         }
+
+        // envoie la requête de session au modèle
         try {
             client.handleCourseRequest(this.sessionName);
             handleCoursesDisplay();
@@ -83,6 +92,7 @@ public class ClientSimple {
      * Imprime les cours disponibles de la session sélectionnée par l'utilisateur et lui donne le choix
      * de s'inscrire à un cours ou de sélectionner une autre session.
      * On gère la réponse de l'utilisateur ensuite.
+     * @throws Exception si l'entrée donnée par l'utilisateur pour le choix d'action n'est pas valide
      */
     private void handleCoursesDisplay() {
         // Imprime les cours offerts pendant la session sélectionnée
@@ -118,6 +128,10 @@ public class ClientSimple {
      * Demande à l'utilisateur les informations nécessaires à son inscription à un cours.
      * On vérifie aussi si les informations sont bonnes si nécessaire.
      * Puis on l'inscrit au cours.
+     * @throws MauvaisChoixException si le choix de cours n'existe pas
+     * @throws IOException si ne se connecte pas au serveur
+     * @throws ClassNotFoundException si n'est pas capable de lire l'objet reçue en réponse du serveur
+     * @throws InscriptionEchoueeException si ne reçoit pas la confirmation d'inscription réussite du serveur
      */
     private void handleCourseSelection() {
         scanner.nextLine();  // pour clear les \n déjà présents
@@ -174,6 +188,7 @@ public class ClientSimple {
      * S'il ne l'est pas, en redemande un nouveau à l'utilisateur.
      * @param email le email donné par l'utilisateur à vérifier le format
      * @return un email avec un bon format
+     * @throws EmailException si le email n'est pas valide
      */
     private String getGoodEmail(String email) {
         try {
@@ -190,6 +205,7 @@ public class ClientSimple {
      * S'il ne l'est pas, en redemande un nouveau à l'utilisateur.
      * @param matricule le matricule donné par l'utilisateur à vérifier le format
      * @return un matricule avec un bon format
+     * @throws MatriculeException si le matricule n'est pas valide
      */
     private String getGoodMatricule(String matricule) {
         try {

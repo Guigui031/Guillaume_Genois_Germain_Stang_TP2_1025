@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.net.Socket;
 import java.io.*;
 
-
+/**
+ * Dans cette classe, nous définissons le modèle pour les clients. Celui-ci est complètement indépendant
+ * des interfaces graphiques. Il gère seul les appels au serveur et l'interprétation des données.
+ */
 public class ClientModel {
     private ArrayList<Course> cours = new ArrayList<>();
 

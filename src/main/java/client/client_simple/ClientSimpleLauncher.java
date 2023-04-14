@@ -2,6 +2,9 @@ package client.client_simple;
 
 import client.ClientModel;
 
+/**
+ * Cette classe permet de démarrer le client simple en lui donnant le modèle sur lequel se baser.
+ */
 public class ClientSimpleLauncher {
     /**
      * Permet le lancement de l'application clientSimple.

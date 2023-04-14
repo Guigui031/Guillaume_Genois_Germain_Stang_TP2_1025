@@ -193,31 +193,24 @@ public class ClientFXView extends BorderPane {
         throw new NullPointerException("cours");
     }
 
-/*
-    public String getTextInfo(String info) {
-        for (int i = 0; i < infoNameList.size(); i++) {
-            if (infoNameList.get(i).getText().equals(info)) {
-                return infoFieldList.get(i).getText();
-            }
-        }
-        return null;
-    }
-
- */
-
-
-    //TODO:PAS TROP COMPRIS POUR LA DESCRIPTION JAVADOC ....
     /**
-     *
-     * @param info
-     * @return
-     * @throws NullPointerException
+     * Trouve la rangée associée à l'information recherchée du nom info.
+     * Puis retourne le String présent dans le champ textuel à remplir y étant associé.
+     * @param info le String à recher
+     * @return le String contenu dans le champ à remplir associé à la catégorie info
+     * @throws NullPointerException si le String dans le champ à remplir est vide
+     * @throws NullPointerException OU s'il n'existe pas le champ info
      */
     public String getTextInfo(String info) throws NullPointerException {
         for (Node row : infoBox.getChildren()) {
+            // prend le nom associé au champ à remplir
             VBox nameBox = (VBox) ((HBox)row).getChildren().get(0);
             Text nameText = (Text) nameBox.getChildren().get(0);
+
+            // prend le String présent dans le champ
             TextField textField = (TextField) ((HBox)row).getChildren().get(1);
+
+            // trouve s'il s'agit du nom que l'on recherche
             if (nameText.getText().equals(info)) {
                 if (textField.getText().equals("")) {
                     throw new NullPointerException(nameText.getText());
