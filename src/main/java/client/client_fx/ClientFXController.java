@@ -46,7 +46,7 @@ public class ClientFXController {
         String session = this.vue.getSession();
         try {
             this.modele.handleCourseRequest(session);
-            this.vue.updateListView(this.modele.getCours());
+            this.vue.updateListView(this.modele.getCourses());
         } catch (IOException e) {
             vue.alertErreur("Erreur dans la connection au serveur. Veuillez vous assurez qu'il est actif.");
         } catch (ClassNotFoundException e) {
@@ -73,7 +73,7 @@ public class ClientFXController {
 
             String matricule = this.vue.getTextInfo("Matricule");
 
-            String codeCours = this.modele.getCours().get(this.vue.getSelectedCours()).getCode();
+            String codeCours = this.modele.getCourses().get(this.vue.getSelectedCours()).getCode();
 
             this.modele.validateEmail(email);
             this.modele.validateMatricule(matricule);

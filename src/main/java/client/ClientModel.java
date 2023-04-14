@@ -13,7 +13,7 @@ import java.io.*;
  * des interfaces graphiques. Il gère seul les appels au serveur et l'interprétation des données.
  */
 public class ClientModel {
-    private ArrayList<Course> cours = new ArrayList<>();
+    private ArrayList<Course> courses = new ArrayList<>();
 
     /**
      * Envoie la requête au serveur de charger les cours disponibles à la session donnée
@@ -35,7 +35,7 @@ public class ClientModel {
         // récupère la réponse du serveur
         InputStream inputStream = socket.getInputStream();
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        this.cours = (ArrayList<Course>) objectInputStream.readObject();
+        this.courses = (ArrayList<Course>) objectInputStream.readObject();
 
         dataOutputStream.close();
     }
@@ -97,7 +97,7 @@ public class ClientModel {
      * @throws MauvaisChoixException si le code de cours ne correspond à aucun cours
      */
     private Course findCourse(String codeCours) throws MauvaisChoixException {
-        for (Course element : cours) {
+        for (Course element : courses) {
             if (element.getCode().equals(codeCours)) {
                 return element;
             }
@@ -133,7 +133,7 @@ public class ClientModel {
      * Retourne la liste de cours disponibles.
      * @return ArrayList des cours
      */
-    public ArrayList<Course> getCours() {
-        return cours;
+    public ArrayList<Course> getCourses() {
+        return courses;
     }
 }

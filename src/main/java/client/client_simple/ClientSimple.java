@@ -171,10 +171,10 @@ public class ClientSimple {
      * @return le String à afficher
      */
     public String getListCoursesToString() {
-        if(!client.getCours().isEmpty()) {
+        if(!client.getCourses().isEmpty()) {
             String listCourses = "";
             int id = 0;
-            for (Course element : client.getCours()) {
+            for (Course element : client.getCourses()) {
                 id += 1;
                 listCourses = listCourses + id + ". " + element.getCode() + "\t" + element.getName() + "\n";
             }
