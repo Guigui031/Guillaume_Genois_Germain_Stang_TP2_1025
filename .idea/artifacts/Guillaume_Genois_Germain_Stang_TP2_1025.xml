@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Guillaume_Genois_Germain_Stang_TP2_1025">
+    <output-path>$PROJECT_DIR$/out/artifacts/Guillaume_Genois_Germain_Stang_TP2_1025</output-path>
+    <root id="root">
+      <element id="archive" name="Guillaume_Genois_Germain_Stang_TP2_1025.jar">
+        <element id="module-output" name="Guillaume_Genois_Germain_Stang_TP2_1025" />
+      </element>
+    </root>
+  </artifact>
+</component>

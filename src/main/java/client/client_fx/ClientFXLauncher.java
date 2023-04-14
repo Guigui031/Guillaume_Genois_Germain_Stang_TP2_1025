@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Dans cette classe nous définissons le launcher de clientfx.
+ * Qui définit le controller et la view et leur intéraction.
+ */
 public class ClientFXLauncher extends Application {
 
     /**
