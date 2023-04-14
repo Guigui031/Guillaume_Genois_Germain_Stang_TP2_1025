@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Dans cette classe nous définissons le controller de notre clientfx.
- * Il contrôle notre clientFxView.
+ * Il contrôle notre clientFxView et fait appelle au modèle pour les opérations nécessaires.
  */
 public class ClientFXController {
     private ClientModel modele;

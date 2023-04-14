@@ -10,7 +10,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * Dans cette classe, nous définissons le server. Celui-ci gère les requêtes du client
+ * et gère les fichiers stockant les informations des cours et des inscriptions.
+ */
 public class Server {
 
     /**
