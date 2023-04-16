@@ -170,7 +170,7 @@ public class ClientSimple {
      * Formatte les cours disponibles pour l'affichage à l'utilisateur.
      * @return le String à afficher
      */
-    public String getListCoursesToString() {
+    private String getListCoursesToString() {
         if(!client.getCourses().isEmpty()) {
             String listCourses = "";
             int id = 0;
