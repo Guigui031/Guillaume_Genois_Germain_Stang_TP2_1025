@@ -1,6 +1,7 @@
-package server;
+package serveur_multithreading.server;
 
 import javafx.util.Pair;
+import server.EventHandler;
 import server.models.Course;
 import server.models.RegistrationForm;
 
@@ -19,7 +20,7 @@ public class Server {
     private Socket client;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
-    private final ArrayList<EventHandler> handlers;
+    private final ArrayList<server.EventHandler> handlers;
 
 
     /**
@@ -29,7 +30,7 @@ public class Server {
      */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
-        this.handlers = new ArrayList<EventHandler>();
+        this.handlers = new ArrayList<server.EventHandler>();
         this.addEventHandler(this::handleEvents);
     }
 
@@ -37,7 +38,7 @@ public class Server {
      Ajoute un gestionnaire d'événements à la liste des gestionnaires d'événements pour ce Serveur.
      @param h le gestionnaire d'événements à ajouter.
      */
-    public void addEventHandler(EventHandler h) {
+    public void addEventHandler(server.EventHandler h) {
         this.handlers.add(h);
     }
 

@@ -1,4 +1,6 @@
-package server.models;
+package serveur_multithreading.server.models;
+
+import server.models.Course;
 
 import java.io.Serializable;
 
@@ -7,9 +9,9 @@ public class RegistrationForm implements Serializable {
     private String nom;
     private String email;
     private String matricule;
-    private Course course;
+    private server.models.Course course;
 
-    public RegistrationForm(String prenom, String nom, String email, String matricule, Course course) {
+    public RegistrationForm(String prenom, String nom, String email, String matricule, server.models.Course course) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -49,7 +51,7 @@ public class RegistrationForm implements Serializable {
         this.matricule = matricule;
     }
 
-    public Course getCourse() {
+    public server.models.Course getCourse() {
         return course;
     }
 

@@ -1,4 +1,4 @@
-package server;
+package serveur_multithreading.server;
 
 @FunctionalInterface
 public interface EventHandler {

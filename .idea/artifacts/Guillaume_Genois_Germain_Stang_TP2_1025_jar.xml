@@ -38,6 +38,30 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/13/javafx-base-13.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/13/javafx-fxml-13.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/13/javafx-fxml-13-mac.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: junit:junit:4.11" />
+      <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.2" />
+      <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+      <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.1" />
+      <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.9.1" />
+      <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.9.1" />
+      <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-engine:1.9.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:mac-aarch64:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:mac:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:mac-aarch64:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:mac:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:mac-aarch64:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:mac:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:mac-aarch64:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:mac:13" />
+      <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.2.0" />
     </root>
   </artifact>
 </component>
