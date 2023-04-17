@@ -1,2 +1,7 @@
 Pour implémenter la fonctionnalité de pouvoir lancer plusieurs client en parallèle, nous avons avons utilisé le multithreading.
-Pour ce faire, 
+Pour ce faire, nous avons modifié le fichier serveur original pour que celui-ci crée un nouveau thread lorsqu'il reçoit une nouvelle requête d'un client.
+Ce thread reçoit en paramètre un runnable qui est en fait une nouvelle classe que nous avons créé implémentant la classe Runnable.
+Cette nouvelle classe détient toutes les méthodes, auparavant présentes dans la classe server originale, permettant le traitement des requêtes CHARGER et INSCRIRE.
+Ainsi, le stream est personnalisé à chaque thread permettant de récupérer le input et d'envoyer le output de façon indépendante à chaque client ayant fait la requête.
+Tous les calculs sont effectués dans le thread indépendant.
+Donc, plusieurs étudiants peuvent utiliser l'application en même temps sans attendre que le dernier ait fini, car un nouveau thread est crée pour chacun de leurs requêtes.
