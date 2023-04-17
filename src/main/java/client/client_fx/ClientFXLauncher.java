@@ -33,6 +33,6 @@ public class ClientFXLauncher extends Application {
      * @param args paramètre le lancement de l'application javaFX.
      */
     public static void main(String[] args) {
-        launch(args);
+        Application.launch();
     }
 }

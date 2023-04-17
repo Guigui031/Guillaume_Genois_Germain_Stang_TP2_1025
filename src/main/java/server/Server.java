@@ -149,7 +149,7 @@ public class Server {
 
         try {
 
-            FileInputStream fileStream = new FileInputStream("src/main/java/server/data/cours.txt");
+            FileInputStream fileStream = new FileInputStream("data/cours.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fileStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -191,7 +191,7 @@ public class Server {
         try {
             RegistrationForm form = (RegistrationForm) objectInputStream.readObject();
 
-            FileOutputStream fileStream = new FileOutputStream("src/main/java/server/data/inscription.txt", true);
+            FileOutputStream fileStream = new FileOutputStream("data/inscription.txt", true);
             BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(fileStream));
             String msg = form.getCourse().getCode() + "\t" + form.getCourse().getName() + "\t" + form.getMatricule() + "\t" + form.getPrenom() + "\t" + form.getNom() + "\t" + form.getEmail() + "\n";
             writer.append(msg);
