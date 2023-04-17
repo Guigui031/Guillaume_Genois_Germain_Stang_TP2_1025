@@ -1,0 +1,2 @@
+Pour implémenter la fonctionnalité de pouvoir lancer plusieurs client en parallèle, nous avons avons utilisé le multithreading.
+Pour ce faire, 
